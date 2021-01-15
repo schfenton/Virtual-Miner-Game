@@ -978,6 +978,7 @@ public final class Functions
                            view.world.numRows - view.viewport.numRows);
 
         view.viewport.shift(newCol, newRow);
+        //test
     }
 
     public static void drawBackground(WorldView view) {
