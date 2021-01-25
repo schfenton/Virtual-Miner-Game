@@ -30,4 +30,25 @@ public final class WorldModel
     public Entity getOccupancyCell(Point pos) {
         return occupancy[pos.y][pos.x];
     }
+
+    /*
+       Assumes that there is no entity currently occupying the
+       intended destination cell.
+    */
+    public void addEntity(Entity entity) {
+        if (entity.position.withinBounds(this)) {
+            setOccupancyCell(entity.position, entity);
+            entities.add(entity);
+        }
+    }
+
+    public void tryAddEntity(Entity entity) {
+        if (entity.position.isOccupied(this)) {
+            // arguably the wrong type of exception, but we are not
+            // defining our own exceptions yet
+            throw new IllegalArgumentException("position occupied");
+        }
+
+        addEntity(entity);
+    }
 }

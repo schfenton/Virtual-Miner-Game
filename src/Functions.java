@@ -203,7 +203,7 @@ public final class Functions
                                                     - BLOB_ANIMATION_MIN),
                                     getImageList(imageStore, BLOB_KEY));
 
-        addEntity(world, blob);
+        world.addEntity(blob);
         scheduleActions(blob, scheduler, world, imageStore);
     }
 
@@ -224,7 +224,7 @@ public final class Functions
                 Entity quake = createQuake(tgtPos,
                                            getImageList(imageStore, QUAKE_KEY));
 
-                addEntity(world, quake);
+                world.addEntity(quake);
                 nextPeriod += entity.actionPeriod;
                 scheduleActions(quake, scheduler, world, imageStore);
             }
@@ -258,7 +258,7 @@ public final class Functions
                                    ORE_CORRUPT_MIN + rand.nextInt(
                                            ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                                    getImageList(imageStore, ORE_KEY));
-            addEntity(world, ore);
+            world.addEntity(ore);
             scheduleActions(ore, scheduler, world, imageStore);
         }
 
@@ -340,7 +340,7 @@ public final class Functions
             removeEntity(world, entity);
             unscheduleAllEvents(scheduler, entity);
 
-            addEntity(world, miner);
+            world.addEntity(miner);
             scheduleActions(miner, scheduler, world, imageStore);
 
             return true;
@@ -363,7 +363,7 @@ public final class Functions
         removeEntity(world, entity);
         unscheduleAllEvents(scheduler, entity);
 
-        addEntity(world, miner);
+        world.addEntity(miner);
         scheduleActions(miner, scheduler, world, imageStore);
     }
 
@@ -672,7 +672,7 @@ public final class Functions
                             properties[MINER_ANIMATION_PERIOD]),
                                                getImageList(imageStore,
                                                             MINER_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == MINER_NUM_PROPERTIES;
@@ -687,7 +687,7 @@ public final class Functions
             Entity entity = createObstacle(properties[OBSTACLE_ID], pt,
                                            getImageList(imageStore,
                                                         OBSTACLE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == OBSTACLE_NUM_PROPERTIES;
@@ -702,7 +702,7 @@ public final class Functions
             Entity entity = createOre(properties[ORE_ID], pt, Integer.parseInt(
                     properties[ORE_ACTION_PERIOD]),
                                       getImageList(imageStore, ORE_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == ORE_NUM_PROPERTIES;
@@ -717,7 +717,7 @@ public final class Functions
             Entity entity = createBlacksmith(properties[SMITH_ID], pt,
                                              getImageList(imageStore,
                                                           SMITH_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == SMITH_NUM_PROPERTIES;
@@ -733,20 +733,10 @@ public final class Functions
                                        Integer.parseInt(
                                                properties[VEIN_ACTION_PERIOD]),
                                        getImageList(imageStore, VEIN_KEY));
-            tryAddEntity(world, entity);
+            world.tryAddEntity(entity);
         }
 
         return properties.length == VEIN_NUM_PROPERTIES;
-    }
-
-    public static void tryAddEntity(WorldModel world, Entity entity) {
-        if (entity.position.isOccupied(world)) {
-            // arguably the wrong type of exception, but we are not
-            // defining our own exceptions yet
-            throw new IllegalArgumentException("position occupied");
-        }
-
-        addEntity(world, entity);
     }
 
     public static Optional<Entity> nearestEntity(
@@ -790,17 +780,6 @@ public final class Functions
         }
 
         return nearestEntity(ofType, pos);
-    }
-
-    /*
-       Assumes that there is no entity currently occupying the
-       intended destination cell.
-    */
-    public static void addEntity(WorldModel world, Entity entity) {
-        if (entity.position.withinBounds(world)) {
-            world.setOccupancyCell(entity.position, entity);
-            world.entities.add(entity);
-        }
     }
 
     public static void moveEntity(WorldModel world, Entity entity, Point pos) {
