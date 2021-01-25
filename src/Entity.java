@@ -56,4 +56,22 @@ public final class Entity
                                 kind));
         }
     }
+
+    public Point nextPositionMiner(
+            WorldModel world, Point destPos)
+    {
+        int horiz = Integer.signum(destPos.x - position.x);
+        Point newPos = new Point(position.x + horiz, position.y);
+
+        if (horiz == 0 || newPos.isOccupied(world)) {
+            int vert = Integer.signum(destPos.y - position.y);
+            newPos = new Point(position.x, position.y + vert);
+
+            if (vert == 0 || newPos.isOccupied(world)) {
+                newPos = position;
+            }
+        }
+
+        return newPos;
+    }
 }

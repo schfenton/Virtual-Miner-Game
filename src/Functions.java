@@ -381,7 +381,7 @@ public final class Functions
             return true;
         }
         else {
-            Point nextPos = nextPositionMiner(miner, world, target.position);
+            Point nextPos = miner.nextPositionMiner(world, target.position);
 
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
@@ -405,7 +405,7 @@ public final class Functions
             return true;
         }
         else {
-            Point nextPos = nextPositionMiner(miner, world, target.position);
+            Point nextPos = miner.nextPositionMiner(world, target.position);
 
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
@@ -445,24 +445,6 @@ public final class Functions
         }
     }
 
-    public static Point nextPositionMiner(
-            Entity entity, WorldModel world, Point destPos)
-    {
-        int horiz = Integer.signum(destPos.x - entity.position.x);
-        Point newPos = new Point(entity.position.x + horiz, entity.position.y);
-
-        if (horiz == 0 || isOccupied(world, newPos)) {
-            int vert = Integer.signum(destPos.y - entity.position.y);
-            newPos = new Point(entity.position.x, entity.position.y + vert);
-
-            if (vert == 0 || isOccupied(world, newPos)) {
-                newPos = entity.position;
-            }
-        }
-
-        return newPos;
-    }
-
     public static Point nextPositionOreBlob(
             Entity entity, WorldModel world, Point destPos)
     {
@@ -497,7 +479,7 @@ public final class Functions
         for (int dy = -ORE_REACH; dy <= ORE_REACH; dy++) {
             for (int dx = -ORE_REACH; dx <= ORE_REACH; dx++) {
                 Point newPt = new Point(pos.x + dx, pos.y + dy);
-                if (withinBounds(world, newPt) && !isOccupied(world, newPt)) {
+                if (newPt.withinBounds(world) && !newPt.isOccupied(world)) {
                     return Optional.of(newPt);
                 }
             }
@@ -777,22 +759,13 @@ public final class Functions
     }
 
     public static void tryAddEntity(WorldModel world, Entity entity) {
-        if (isOccupied(world, entity.position)) {
+        if (entity.position.isOccupied(world)) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
         }
 
         addEntity(world, entity);
-    }
-
-    public static boolean withinBounds(WorldModel world, Point pos) {
-        return pos.y >= 0 && pos.y < world.numRows && pos.x >= 0
-                && pos.x < world.numCols;
-    }
-
-    public static boolean isOccupied(WorldModel world, Point pos) {
-        return withinBounds(world, pos) && getOccupancyCell(world, pos) != null;
     }
 
     public static Optional<Entity> nearestEntity(
@@ -843,7 +816,7 @@ public final class Functions
        intended destination cell.
     */
     public static void addEntity(WorldModel world, Entity entity) {
-        if (withinBounds(world, entity.position)) {
+        if (entity.position.withinBounds(world)) {
             setOccupancyCell(world, entity.position, entity);
             world.entities.add(entity);
         }
@@ -851,7 +824,7 @@ public final class Functions
 
     public static void moveEntity(WorldModel world, Entity entity, Point pos) {
         Point oldPos = entity.position;
-        if (withinBounds(world, pos) && !pos.equals(oldPos)) {
+        if (pos.withinBounds(world) && !pos.equals(oldPos)) {
             setOccupancyCell(world, oldPos, null);
             removeEntityAt(world, pos);
             setOccupancyCell(world, pos, entity);
@@ -864,8 +837,8 @@ public final class Functions
     }
 
     public static void removeEntityAt(WorldModel world, Point pos) {
-        if (withinBounds(world, pos) && getOccupancyCell(world, pos) != null) {
-            Entity entity = getOccupancyCell(world, pos);
+        if (pos.withinBounds(world) && pos.getOccupancyCell(world) != null) {
+            Entity entity = pos.getOccupancyCell(world);
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
@@ -878,7 +851,7 @@ public final class Functions
     public static Optional<PImage> getBackgroundImage(
             WorldModel world, Point pos)
     {
-        if (withinBounds(world, pos)) {
+        if (pos.withinBounds(world)) {
             return Optional.of(getBackgroundCell(world, pos).getCurrentImage());
         }
         else {
@@ -889,22 +862,18 @@ public final class Functions
     public static void setBackground(
             WorldModel world, Point pos, Background background)
     {
-        if (withinBounds(world, pos)) {
+        if (pos.withinBounds(world)) {
             setBackgroundCell(world, pos, background);
         }
     }
 
     public static Optional<Entity> getOccupant(WorldModel world, Point pos) {
-        if (isOccupied(world, pos)) {
-            return Optional.of(getOccupancyCell(world, pos));
+        if (pos.isOccupied(world)) {
+            return Optional.of(pos.getOccupancyCell(world));
         }
         else {
             return Optional.empty();
         }
-    }
-
-    public static Entity getOccupancyCell(WorldModel world, Point pos) {
-        return world.occupancy[pos.y][pos.x];
     }
 
     public static void setOccupancyCell(

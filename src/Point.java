@@ -23,4 +23,17 @@ public final class Point
         result = result * 31 + y;
         return result;
     }
+
+    public boolean withinBounds(WorldModel world) {
+        return y >= 0 && y < world.numRows && x >= 0
+                && x < world.numCols;
+    }
+
+    public boolean isOccupied(WorldModel world) {
+        return withinBounds(world) && getOccupancyCell(world) != null;
+    }
+
+    public Entity getOccupancyCell(WorldModel world) {
+        return world.occupancy[y][x];
+    }
 }
