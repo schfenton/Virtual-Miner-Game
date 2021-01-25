@@ -1,6 +1,11 @@
 "Second, in a plain text file (named DESIGN.txt) list each of the methods that was left in the Functions class and give a brief justification for why this method was not moved. You should also list each method that you feel could be reasonably placed in multiple classes and note 1) the class you selected and 2) the reason for that selection. You do not need to add many functions to this file - I will go over which ones you may want to include in class."
 
 getCurrentImage: split between Background and Entity because accessed from both types
+
 isOccupied + withinBounds: could have been in world, but put in Point because
     checking if the Point itself is occupied.
+
 processLine: Still in Functions because has no direct affect on or uses data from any of the objects
+
+addEntity + removeEntity + moveEntity: In world instead of entity because it's changing a property in world,
+    putting in Entity would be confusing whether it was constructing an entity object or adding to world

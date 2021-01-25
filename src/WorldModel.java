@@ -51,4 +51,30 @@ public final class WorldModel
 
         addEntity(entity);
     }
+
+    public void removeEntity(Entity entity) {
+        removeEntityAt(entity.position);
+    }
+
+    public void removeEntityAt(Point pos) {
+        if (pos.withinBounds(this) && getOccupancyCell(pos) != null) {
+            Entity entity = getOccupancyCell(pos);
+
+            /* This moves the entity just outside of the grid for
+             * debugging purposes. */
+            entity.position = new Point(-1, -1);
+            entities.remove(entity);
+            setOccupancyCell(pos, null);
+        }
+    }
+
+    public void moveEntity(Entity entity, Point pos) {
+        Point oldPos = entity.position;
+        if (pos.withinBounds(this) && !pos.equals(oldPos)) {
+            setOccupancyCell(oldPos, null);
+            removeEntityAt(pos);
+            setOccupancyCell(pos, entity);
+            entity.position = pos;
+        }
+    }
 }

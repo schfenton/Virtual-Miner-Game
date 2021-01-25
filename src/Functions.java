@@ -193,8 +193,8 @@ public final class Functions
     {
         Point pos = entity.position;
 
-        removeEntity(world, entity);
-        unscheduleAllEvents(scheduler, entity);
+        world.removeEntity(entity);
+        scheduler.unscheduleAllEvents(entity);
 
         Entity blob = createOreBlob(entity.id + BLOB_ID_SUFFIX, pos,
                                     entity.actionPeriod / BLOB_PERIOD_SCALE,
@@ -241,8 +241,8 @@ public final class Functions
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        unscheduleAllEvents(scheduler, entity);
-        removeEntity(world, entity);
+        scheduler.unscheduleAllEvents(entity);
+        world.removeEntity(entity);
     }
 
     public static void executeVeinActivity(
@@ -337,8 +337,8 @@ public final class Functions
                                            entity.animationPeriod,
                                            entity.images);
 
-            removeEntity(world, entity);
-            unscheduleAllEvents(scheduler, entity);
+            world.removeEntity(entity);
+            scheduler.unscheduleAllEvents(entity);
 
             world.addEntity(miner);
             scheduleActions(miner, scheduler, world, imageStore);
@@ -360,8 +360,8 @@ public final class Functions
                                           entity.animationPeriod,
                                           entity.images);
 
-        removeEntity(world, entity);
-        unscheduleAllEvents(scheduler, entity);
+        world.removeEntity(entity);
+        scheduler.unscheduleAllEvents(entity);
 
         world.addEntity(miner);
         scheduleActions(miner, scheduler, world, imageStore);
@@ -375,8 +375,8 @@ public final class Functions
     {
         if (adjacent(miner.position, target.position)) {
             miner.resourceCount += 1;
-            removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
 
             return true;
         }
@@ -386,10 +386,10 @@ public final class Functions
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                moveEntity(world, miner, nextPos);
+                world.moveEntity(miner, nextPos);
             }
             return false;
         }
@@ -410,10 +410,10 @@ public final class Functions
             if (!miner.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                moveEntity(world, miner, nextPos);
+                world.moveEntity(miner, nextPos);
             }
             return false;
         }
@@ -426,8 +426,8 @@ public final class Functions
             EventScheduler scheduler)
     {
         if (adjacent(blob.position, target.position)) {
-            removeEntity(world, target);
-            unscheduleAllEvents(scheduler, target);
+            world.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
@@ -436,10 +436,10 @@ public final class Functions
             if (!blob.position.equals(nextPos)) {
                 Optional<Entity> occupant = getOccupant(world, nextPos);
                 if (occupant.isPresent()) {
-                    unscheduleAllEvents(scheduler, occupant.get());
+                    scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                moveEntity(world, blob, nextPos);
+                world.moveEntity(blob, nextPos);
             }
             return false;
         }
@@ -486,18 +486,6 @@ public final class Functions
         }
 
         return Optional.empty();
-    }
-
-    public static void unscheduleAllEvents(
-            EventScheduler scheduler, Entity entity)
-    {
-        List<Event> pending = scheduler.pendingEvents.remove(entity);
-
-        if (pending != null) {
-            for (Event event : pending) {
-                scheduler.eventQueue.remove(event);
-            }
-        }
     }
 
     public static void removePendingEvent(
@@ -750,32 +738,6 @@ public final class Functions
         }
 
         return pos.nearestEntity(ofType);
-    }
-
-    public static void moveEntity(WorldModel world, Entity entity, Point pos) {
-        Point oldPos = entity.position;
-        if (pos.withinBounds(world) && !pos.equals(oldPos)) {
-            world.setOccupancyCell(oldPos, null);
-            removeEntityAt(world, pos);
-            world.setOccupancyCell(pos, entity);
-            entity.position = pos;
-        }
-    }
-
-    public static void removeEntity(WorldModel world, Entity entity) {
-        removeEntityAt(world, entity.position);
-    }
-
-    public static void removeEntityAt(WorldModel world, Point pos) {
-        if (pos.withinBounds(world) && world.getOccupancyCell(pos) != null) {
-            Entity entity = world.getOccupancyCell(pos);
-
-            /* This moves the entity just outside of the grid for
-             * debugging purposes. */
-            entity.position = new Point(-1, -1);
-            world.entities.remove(entity);
-            world.setOccupancyCell(pos, null);
-        }
     }
 
     public static Optional<PImage> getBackgroundImage(
