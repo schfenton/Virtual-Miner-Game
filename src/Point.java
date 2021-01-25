@@ -30,10 +30,6 @@ public final class Point
     }
 
     public boolean isOccupied(WorldModel world) {
-        return withinBounds(world) && getOccupancyCell(world) != null;
-    }
-
-    public Entity getOccupancyCell(WorldModel world) {
-        return world.occupancy[y][x];
+        return withinBounds(world) && world.getOccupancyCell(this) != null;
     }
 }

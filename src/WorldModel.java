@@ -21,4 +21,13 @@ public final class WorldModel
             Arrays.fill(this.background[row], defaultBackground);
         }
     }
+
+    public void setOccupancyCell(Point pos, Entity entity)
+    {
+        occupancy[pos.y][pos.x] = entity;
+    }
+
+    public Entity getOccupancyCell(Point pos) {
+        return occupancy[pos.y][pos.x];
+    }
 }

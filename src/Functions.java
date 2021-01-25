@@ -798,7 +798,7 @@ public final class Functions
     */
     public static void addEntity(WorldModel world, Entity entity) {
         if (entity.position.withinBounds(world)) {
-            setOccupancyCell(world, entity.position, entity);
+            world.setOccupancyCell(entity.position, entity);
             world.entities.add(entity);
         }
     }
@@ -806,9 +806,9 @@ public final class Functions
     public static void moveEntity(WorldModel world, Entity entity, Point pos) {
         Point oldPos = entity.position;
         if (pos.withinBounds(world) && !pos.equals(oldPos)) {
-            setOccupancyCell(world, oldPos, null);
+            world.setOccupancyCell(oldPos, null);
             removeEntityAt(world, pos);
-            setOccupancyCell(world, pos, entity);
+            world.setOccupancyCell(pos, entity);
             entity.position = pos;
         }
     }
@@ -818,14 +818,14 @@ public final class Functions
     }
 
     public static void removeEntityAt(WorldModel world, Point pos) {
-        if (pos.withinBounds(world) && pos.getOccupancyCell(world) != null) {
-            Entity entity = pos.getOccupancyCell(world);
+        if (pos.withinBounds(world) && world.getOccupancyCell(pos) != null) {
+            Entity entity = world.getOccupancyCell(pos);
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
             entity.position = new Point(-1, -1);
             world.entities.remove(entity);
-            setOccupancyCell(world, pos, null);
+            world.setOccupancyCell(pos, null);
         }
     }
 
@@ -850,17 +850,11 @@ public final class Functions
 
     public static Optional<Entity> getOccupant(WorldModel world, Point pos) {
         if (pos.isOccupied(world)) {
-            return Optional.of(pos.getOccupancyCell(world));
+            return Optional.of(world.getOccupancyCell(pos));
         }
         else {
             return Optional.empty();
         }
-    }
-
-    public static void setOccupancyCell(
-            WorldModel world, Point pos, Entity entity)
-    {
-        world.occupancy[pos.y][pos.x] = entity;
     }
 
     public static Background getBackgroundCell(WorldModel world, Point pos) {
