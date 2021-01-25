@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public final class WorldModel
@@ -43,7 +44,7 @@ public final class WorldModel
     }
 
     public void tryAddEntity(Entity entity) {
-        if (entity.position.isOccupied(this)) {
+        if (isOccupied(entity.position)) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
@@ -77,4 +78,19 @@ public final class WorldModel
             entity.position = pos;
         }
     }
+
+    public boolean isOccupied(Point pos) {
+        return pos.withinBounds(this) && getOccupancyCell(pos) != null;
+    }
+
+    public Optional<Entity> getOccupant(Point pos) {
+        if (isOccupied(pos)) {
+            return Optional.of(getOccupancyCell(pos));
+        }
+        else {
+            return Optional.empty();
+        }
+    }
+
+
 }

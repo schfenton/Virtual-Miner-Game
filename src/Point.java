@@ -32,10 +32,6 @@ public final class Point
                 && x < world.numCols;
     }
 
-    public boolean isOccupied(WorldModel world) {
-        return withinBounds(world) && world.getOccupancyCell(this) != null;
-    }
-
     public Optional<Entity> nearestEntity(
             List<Entity> entities)
     {
