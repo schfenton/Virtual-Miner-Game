@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Optional;
+
 public final class Point
 {
     public final int x;
@@ -31,5 +34,35 @@ public final class Point
 
     public boolean isOccupied(WorldModel world) {
         return withinBounds(world) && world.getOccupancyCell(this) != null;
+    }
+
+    public Optional<Entity> nearestEntity(
+            List<Entity> entities)
+    {
+        if (entities.isEmpty()) {
+            return Optional.empty();
+        }
+        else {
+            Entity nearest = entities.get(0);
+            int nearestDistance = nearest.position.distanceSquared(this);
+
+            for (Entity other : entities) {
+                int otherDistance = other.position.distanceSquared(this);
+
+                if (otherDistance < nearestDistance) {
+                    nearest = other;
+                    nearestDistance = otherDistance;
+                }
+            }
+
+            return Optional.of(nearest);
+        }
+    }
+
+    public int distanceSquared(Point p2) {
+        int deltaX = this.x - p2.x;
+        int deltaY = this.y - p2.y;
+
+        return deltaX * deltaX + deltaY * deltaY;
     }
 }
