@@ -38,4 +38,22 @@ public final class Entity
     public PImage getCurrentImage() {
         return images.get(imageIndex);
     }
+
+    public void nextImage() {
+        imageIndex = (imageIndex + 1) % images.size();
+    }
+
+    public int getAnimationPeriod() {
+        switch (kind) {
+            case MINER_FULL:
+            case MINER_NOT_FULL:
+            case ORE_BLOB:
+            case QUAKE:
+                return animationPeriod;
+            default:
+                throw new UnsupportedOperationException(
+                        String.format("getAnimationPeriod not supported for %s",
+                                kind));
+        }
+    }
 }
