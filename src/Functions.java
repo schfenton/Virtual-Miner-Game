@@ -196,7 +196,7 @@ public final class Functions
         world.removeEntity(entity);
         scheduler.unscheduleAllEvents(entity);
 
-        Entity blob = createOreBlob(entity.id + BLOB_ID_SUFFIX, pos,
+        Entity blob = Entity.createOreBlob(entity.id + BLOB_ID_SUFFIX, pos,
                                     entity.actionPeriod / BLOB_PERIOD_SCALE,
                                     BLOB_ANIMATION_MIN + rand.nextInt(
                                             BLOB_ANIMATION_MAX
@@ -221,7 +221,7 @@ public final class Functions
             Point tgtPos = blobTarget.get().position;
 
             if (moveToOreBlob(entity, world, blobTarget.get(), scheduler)) {
-                Entity quake = createQuake(tgtPos,
+                Entity quake = Entity.createQuake(tgtPos,
                                            getImageList(imageStore, QUAKE_KEY));
 
                 world.addEntity(quake);
@@ -254,7 +254,7 @@ public final class Functions
         Optional<Point> openPt = findOpenAround(world, entity.position);
 
         if (openPt.isPresent()) {
-            Entity ore = createOre(ORE_ID_PREFIX + entity.id, openPt.get(),
+            Entity ore = Entity.createOre(ORE_ID_PREFIX + entity.id, openPt.get(),
                                    ORE_CORRUPT_MIN + rand.nextInt(
                                            ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                                    getImageList(imageStore, ORE_KEY));
@@ -332,7 +332,7 @@ public final class Functions
             ImageStore imageStore)
     {
         if (entity.resourceCount >= entity.resourceLimit) {
-            Entity miner = createMinerFull(entity.id, entity.resourceLimit,
+            Entity miner = Entity.createMinerFull(entity.id, entity.resourceLimit,
                                            entity.position, entity.actionPeriod,
                                            entity.animationPeriod,
                                            entity.images);
@@ -355,7 +355,7 @@ public final class Functions
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = createMinerNotFull(entity.id, entity.resourceLimit,
+        Entity miner = Entity.createMinerNotFull(entity.id, entity.resourceLimit,
                                           entity.position, entity.actionPeriod,
                                           entity.animationPeriod,
                                           entity.images);
@@ -627,7 +627,7 @@ public final class Functions
         if (properties.length == MINER_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[MINER_COL]),
                                  Integer.parseInt(properties[MINER_ROW]));
-            Entity entity = createMinerNotFull(properties[MINER_ID],
+            Entity entity = Entity.createMinerNotFull(properties[MINER_ID],
                                                Integer.parseInt(
                                                        properties[MINER_LIMIT]),
                                                pt, Integer.parseInt(
@@ -647,7 +647,7 @@ public final class Functions
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[OBSTACLE_COL]),
                                  Integer.parseInt(properties[OBSTACLE_ROW]));
-            Entity entity = createObstacle(properties[OBSTACLE_ID], pt,
+            Entity entity = Entity.createObstacle(properties[OBSTACLE_ID], pt,
                                            getImageList(imageStore,
                                                         OBSTACLE_KEY));
             world.tryAddEntity(entity);
@@ -662,7 +662,7 @@ public final class Functions
         if (properties.length == ORE_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[ORE_COL]),
                                  Integer.parseInt(properties[ORE_ROW]));
-            Entity entity = createOre(properties[ORE_ID], pt, Integer.parseInt(
+            Entity entity = Entity.createOre(properties[ORE_ID], pt, Integer.parseInt(
                     properties[ORE_ACTION_PERIOD]),
                                       getImageList(imageStore, ORE_KEY));
             world.tryAddEntity(entity);
@@ -677,7 +677,7 @@ public final class Functions
         if (properties.length == SMITH_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[SMITH_COL]),
                                  Integer.parseInt(properties[SMITH_ROW]));
-            Entity entity = createBlacksmith(properties[SMITH_ID], pt,
+            Entity entity = Entity.createBlacksmith(properties[SMITH_ID], pt,
                                              getImageList(imageStore,
                                                           SMITH_KEY));
             world.tryAddEntity(entity);
@@ -692,7 +692,7 @@ public final class Functions
         if (properties.length == VEIN_NUM_PROPERTIES) {
             Point pt = new Point(Integer.parseInt(properties[VEIN_COL]),
                                  Integer.parseInt(properties[VEIN_ROW]));
-            Entity entity = createVein(properties[VEIN_ID], pt,
+            Entity entity = Entity.createVein(properties[VEIN_ID], pt,
                                        Integer.parseInt(
                                                properties[VEIN_ACTION_PERIOD]),
                                        getImageList(imageStore, VEIN_KEY));
@@ -799,74 +799,4 @@ public final class Functions
         return new Action(ActionKind.ACTIVITY, entity, world, imageStore, 0);
     }
 
-    public static Entity createBlacksmith(
-            String id, Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.BLACKSMITH, id, position, images, 0, 0, 0,
-                          0);
-    }
-
-    public static Entity createMinerFull(
-            String id,
-            int resourceLimit,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.MINER_FULL, id, position, images,
-                          resourceLimit, resourceLimit, actionPeriod,
-                          animationPeriod);
-    }
-
-    public static Entity createMinerNotFull(
-            String id,
-            int resourceLimit,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.MINER_NOT_FULL, id, position, images,
-                          resourceLimit, 0, actionPeriod, animationPeriod);
-    }
-
-    public static Entity createObstacle(
-            String id, Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0,
-                          0);
-    }
-
-    public static Entity createOre(
-            String id, Point position, int actionPeriod, List<PImage> images)
-    {
-        return new Entity(EntityKind.ORE, id, position, images, 0, 0,
-                          actionPeriod, 0);
-    }
-
-    public static Entity createOreBlob(
-            String id,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.ORE_BLOB, id, position, images, 0, 0,
-                          actionPeriod, animationPeriod);
-    }
-
-    public static Entity createQuake(
-            Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.QUAKE, QUAKE_ID, position, images, 0, 0,
-                          QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
-    }
-
-    public static Entity createVein(
-            String id, Point position, int actionPeriod, List<PImage> images)
-    {
-        return new Entity(EntityKind.VEIN, id, position, images, 0, 0,
-                          actionPeriod, 0);
-    }
 }
