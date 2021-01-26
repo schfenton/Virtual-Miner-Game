@@ -2,9 +2,19 @@
 
 getCurrentImage: split between Background and Entity because accessed from both types
 
-processLine: Still in Functions because has no direct affect on or uses data from any of the objects
+load + processLine + processImageLine + parse*: In Functions because world isn't doing the action or has any data needed, the
+functions are just reading text to parse into the game world
 
 addEntity + removeEntity + moveEntity: In world instead of entity because it's changing a property in world,
     putting in Entity would be confusing whether it was constructing an entity object or adding to world
 
 withinBounds: in Point instead of World because it's checking if the point is in the world
+
+shiftView: has to be static because cannot call non-static function from static VirtualWorld (had to add getters/setters
+to reference viewport)
+
+getImages + setAlpha: has no reference to any other class methods or data, so just kept in Functions
+
+findNearest + nearestEntity: could be in WorldModel, but in Point because finding nearest entity in the world with respect to the point
+
+clamp: in Functions because static, does not relate directly to any classes
