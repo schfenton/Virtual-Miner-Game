@@ -149,23 +149,20 @@ public final class Entity
         return newPos;
     }
 
-    public Point nextPositionOreBlob(WorldModel world, Point destPos)
-    {
+    public Point nextPositionOreBlob(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.x - position.x);
         Point newPos = new Point(position.x + horiz, position.y);
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
         if (horiz == 0 || (occupant.isPresent() && !(occupant.get().kind
-                == EntityKind.ORE)))
-        {
+                == EntityKind.ORE))) {
             int vert = Integer.signum(destPos.y - position.y);
             newPos = new Point(position.x, position.y + vert);
             occupant = world.getOccupant(newPos);
 
             if (vert == 0 || (occupant.isPresent() && !(occupant.get().kind
-                    == EntityKind.ORE)))
-            {
+                    == EntityKind.ORE))) {
                 newPos = position;
             }
         }
