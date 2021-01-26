@@ -76,72 +76,6 @@ public final class Functions
     public static final int VEIN_ROW = 3;
     public static final int VEIN_ACTION_PERIOD = 4;
 
-    public static void executeAction(Action action, EventScheduler scheduler) {
-        switch (action.kind) {
-            case ACTIVITY:
-                executeActivityAction(action, scheduler);
-                break;
-
-            case ANIMATION:
-                executeAnimationAction(action, scheduler);
-                break;
-        }
-    }
-
-    public static void executeAnimationAction(
-            Action action, EventScheduler scheduler)
-    {
-        action.entity.nextImage();
-
-        if (action.repeatCount != 1) {
-            scheduler.scheduleEvent(action.entity,
-                          Action.createAnimationAction(action.entity,
-                                                Math.max(action.repeatCount - 1,
-                                                         0)), action.entity.getAnimationPeriod());
-        }
-    }
-
-    public static void executeActivityAction( //possibly Action
-            Action action, EventScheduler scheduler)
-    {
-        switch (action.entity.kind) {
-            case MINER_FULL:
-                action.entity.executeMinerFullActivity(action.world,
-                                         action.imageStore, scheduler);
-                break;
-
-            case MINER_NOT_FULL:
-                action.entity.executeMinerNotFullActivity(action.world,
-                                            action.imageStore, scheduler);
-                break;
-
-            case ORE:
-                action.entity.executeOreActivity(action.world,
-                                   action.imageStore, scheduler);
-                break;
-
-            case ORE_BLOB:
-                action.entity.executeOreBlobActivity(action.world,
-                                       action.imageStore, scheduler);
-                break;
-
-            case QUAKE:
-                action.entity.executeQuakeActivity(action.world,
-                                     action.imageStore, scheduler);
-                break;
-
-            case VEIN:
-                action.entity.executeVeinActivity(action.world,
-                                    action.imageStore, scheduler);
-                break;
-
-            default:
-                throw new UnsupportedOperationException(String.format(
-                        "executeActivityAction not supported for %s",
-                        action.entity.kind));
-        }
-    }
-
     public static void removePendingEvent(
             EventScheduler scheduler, Event event)
     {
@@ -159,7 +93,7 @@ public final class Functions
 
             removePendingEvent(scheduler, next);
 
-            executeAction(next.action, scheduler);
+            next.action.executeAction(scheduler);
         }
     }
 
