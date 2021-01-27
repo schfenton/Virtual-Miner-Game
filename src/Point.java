@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,24 @@ public final class Point
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public boolean adjacent(Point pos) {
+        return (x == pos.x && Math.abs(y - pos.y) == 1) || (y == pos.y
+                && Math.abs(x - pos.x) == 1);
+    }
+
+    public Optional<Entity> findNearest(
+            WorldModel world, EntityKind kind)
+    {
+        List<Entity> ofType = new LinkedList<>();
+        for (Entity entity : world.entities) {
+            if (entity.kind == kind) {
+                ofType.add(entity);
+            }
+        }
+
+        return nearestEntity(ofType);
     }
 
     public String toString() {
