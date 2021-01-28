@@ -76,26 +76,6 @@ public final class Functions
     public static final int VEIN_ROW = 3;
     public static final int VEIN_ACTION_PERIOD = 4;
 
-    public static void removePendingEvent(
-            EventScheduler scheduler, Event event)
-    {
-        List<Event> pending = scheduler.pendingEvents.get(event.entity);
-
-        if (pending != null) {
-            pending.remove(event);
-        }
-    }
-
-    public static void updateOnTime(EventScheduler scheduler, long time) {
-        while (!scheduler.eventQueue.isEmpty()
-                && scheduler.eventQueue.peek().time < time) {
-            Event next = scheduler.eventQueue.poll();
-
-            removePendingEvent(scheduler, next);
-
-            next.action.executeAction(scheduler);
-        }
-    }
 
     public static void loadImages(
             Scanner in, ImageStore imageStore, PApplet screen)
