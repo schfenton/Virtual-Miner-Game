@@ -74,7 +74,7 @@ public final class VirtualWorld extends PApplet
             nextTime = time + TIMER_ACTION_PERIOD;
         }
 
-        Functions.drawViewport(view);
+        view.drawViewport();
     }
 
     public void keyPressed() {

@@ -286,36 +286,4 @@ public final class Functions
         return Math.min(high, Math.max(value, low));
     }
 
-    public static void drawBackground(WorldView view) {
-        for (int row = 0; row < view.getViewport().numRows; row++) {
-            for (int col = 0; col < view.getViewport().numCols; col++) {
-                Point worldPoint = view.getViewport().viewportToWorld(col, row);
-                Optional<PImage> image =
-                        view.getWorld().getBackgroundImage(worldPoint);
-                if (image.isPresent()) {
-                    view.screen.image(image.get(), col * view.tileWidth,
-                                      row * view.tileHeight);
-                }
-            }
-        }
-    }
-
-    public static void drawEntities(WorldView view) {
-        for (Entity entity : view.getWorld().entities) {
-            Point pos = entity.position;
-
-            if (view.getViewport().contains(pos)) {
-                Point viewPoint = view.getViewport().worldToViewport(pos.x, pos.y);
-                view.screen.image(entity.getCurrentImage(),
-                                  viewPoint.x * view.tileWidth,
-                                  viewPoint.y * view.tileHeight);
-            }
-        }
-    }
-
-    public static void drawViewport(WorldView view) {
-        drawBackground(view);
-        drawEntities(view);
-    }
-
 }
