@@ -1,3 +1,5 @@
+import processing.core.PImage;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -103,6 +105,32 @@ public final class WorldModel
         }
 
         return Optional.empty();
+    }
+
+    public Optional<PImage> getBackgroundImage(Point pos)
+    {
+        if (pos.withinBounds(this)) {
+            return Optional.of(getBackgroundCell(pos).getCurrentImage());
+        }
+        else {
+            return Optional.empty();
+        }
+    }
+
+    public void setBackground(Point pos, Background background)
+    {
+        if (pos.withinBounds(this)) {
+            setBackgroundCell(pos, background);
+        }
+    }
+
+    public Background getBackgroundCell(Point pos) {
+        return background[pos.y][pos.x];
+    }
+
+    public void setBackgroundCell(Point pos, Background background)
+    {
+        this.background[pos.y][pos.x] = background;
     }
 
 

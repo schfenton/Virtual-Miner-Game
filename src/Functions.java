@@ -223,8 +223,7 @@ public final class Functions
             Point pt = new Point(Integer.parseInt(properties[BGND_COL]),
                                  Integer.parseInt(properties[BGND_ROW]));
             String id = properties[BGND_ID];
-            setBackground(world, pt,
-                          new Background(id, imageStore.getImageList(id)));
+            world.setBackground(pt, new Background(id, imageStore.getImageList(id)));
         }
 
         return properties.length == BGND_NUM_PROPERTIES;
@@ -308,35 +307,6 @@ public final class Functions
         return properties.length == VEIN_NUM_PROPERTIES;
     }
 
-    public static Optional<PImage> getBackgroundImage(
-            WorldModel world, Point pos)
-    {
-        if (pos.withinBounds(world)) {
-            return Optional.of(getBackgroundCell(world, pos).getCurrentImage());
-        }
-        else {
-            return Optional.empty();
-        }
-    }
-
-    public static void setBackground(
-            WorldModel world, Point pos, Background background)
-    {
-        if (pos.withinBounds(world)) {
-            setBackgroundCell(world, pos, background);
-        }
-    }
-
-    public static Background getBackgroundCell(WorldModel world, Point pos) {
-        return world.background[pos.y][pos.x];
-    }
-
-    public static void setBackgroundCell(
-            WorldModel world, Point pos, Background background)
-    {
-        world.background[pos.y][pos.x] = background;
-    }
-
     public static Point viewportToWorld(Viewport viewport, int col, int row) {
         return new Point(col + viewport.col, row + viewport.row);
     }
@@ -354,7 +324,7 @@ public final class Functions
             for (int col = 0; col < view.getViewport().numCols; col++) {
                 Point worldPoint = viewportToWorld(view.getViewport(), col, row);
                 Optional<PImage> image =
-                        getBackgroundImage(view.getWorld(), worldPoint);
+                        view.getWorld().getBackgroundImage(worldPoint);
                 if (image.isPresent()) {
                     view.screen.image(image.get(), col * view.tileWidth,
                                       row * view.tileHeight);
