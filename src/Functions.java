@@ -163,11 +163,6 @@ public final class Functions
         img.updatePixels();
     }
 
-    public static boolean contains(Viewport viewport, Point p) {
-        return p.y >= viewport.row && p.y < viewport.row + viewport.numRows
-                && p.x >= viewport.col && p.x < viewport.col + viewport.numCols;
-    }
-
     public static void load(
             Scanner in, WorldModel world, ImageStore imageStore)
     {
@@ -307,14 +302,6 @@ public final class Functions
         return properties.length == VEIN_NUM_PROPERTIES;
     }
 
-    public static Point viewportToWorld(Viewport viewport, int col, int row) {
-        return new Point(col + viewport.col, row + viewport.row);
-    }
-
-    public static Point worldToViewport(Viewport viewport, int col, int row) {
-        return new Point(col - viewport.col, row - viewport.row);
-    }
-
     public static int clamp(int value, int low, int high) {
         return Math.min(high, Math.max(value, low));
     }
@@ -322,7 +309,7 @@ public final class Functions
     public static void drawBackground(WorldView view) {
         for (int row = 0; row < view.getViewport().numRows; row++) {
             for (int col = 0; col < view.getViewport().numCols; col++) {
-                Point worldPoint = viewportToWorld(view.getViewport(), col, row);
+                Point worldPoint = view.getViewport().viewportToWorld(col, row);
                 Optional<PImage> image =
                         view.getWorld().getBackgroundImage(worldPoint);
                 if (image.isPresent()) {
@@ -337,8 +324,8 @@ public final class Functions
         for (Entity entity : view.getWorld().entities) {
             Point pos = entity.position;
 
-            if (contains(view.getViewport(), pos)) {
-                Point viewPoint = worldToViewport(view.getViewport(), pos.x, pos.y);
+            if (view.getViewport().contains(pos)) {
+                Point viewPoint = view.getViewport().worldToViewport(pos.x, pos.y);
                 view.screen.image(entity.getCurrentImage(),
                                   viewPoint.x * view.tileWidth,
                                   viewPoint.y * view.tileHeight);
