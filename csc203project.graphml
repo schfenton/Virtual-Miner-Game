@@ -216,42 +216,42 @@
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="81.2763671875" x="150.86181640624991" xml:space="preserve" y="3.0">VirtualWorld<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve">+TIMER_ACTION_PERIOD: int         &lt;&lt;static&gt;&gt;
-+VIEW_WIDTH: int                          &lt;&lt;static&gt;&gt;
-+VIEW_HEIGHT: int                         &lt;&lt;static&gt;&gt;
-+TILE_WIDTH: int                           &lt;&lt;static&gt;&gt;
-+TILE_HEIGHT: int                          &lt;&lt;static&gt;&gt;
-+WORLD_WIDTH_SCALE: int           &lt;&lt;static&gt;&gt;
-+WORLD_HEIGHT_SCALE: int          &lt;&lt;static&gt;&gt;
-+VIEW_COLS: int                             &lt;&lt;static&gt;&gt;
-+VIEW_ROWS: int                            &lt;&lt;static&gt;&gt;
-+WORLD_COLS: int                         &lt;&lt;static&gt;&gt;
-+WORLD_ROWS: int                        &lt;&lt;static&gt;&gt;
-+IMAGE_LIST_FILE_NAME: String    &lt;&lt;static&gt;&gt;
-+DEFAULT_IMAGE_NAME: String    &lt;&lt;static&gt;&gt;
-+DEFAULT_IMAGE_COLOR: int       &lt;&lt;static&gt;&gt;
-+LOAD_FILE_NAME: String            &lt;&lt;static&gt;&gt;
-+FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
-+FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
-+FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
-+FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
-+FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
-+FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
-+timeScale: double
-+imageStore: ImageStore
-+world: WorldModel
-+view: WorldView
-+scheduler: EventScheduler</y:AttributeLabel>
+            <y:AttributeLabel xml:space="preserve">-TIMER_ACTION_PERIOD: int         &lt;&lt;static&gt;&gt;
+-VIEW_WIDTH: int                          &lt;&lt;static&gt;&gt;
+-VIEW_HEIGHT: int                         &lt;&lt;static&gt;&gt;
+-TILE_WIDTH: int                           &lt;&lt;static&gt;&gt;
+-TILE_HEIGHT: int                          &lt;&lt;static&gt;&gt;
+-WORLD_WIDTH_SCALE: int           &lt;&lt;static&gt;&gt;
+-WORLD_HEIGHT_SCALE: int          &lt;&lt;static&gt;&gt;
+-VIEW_COLS: int                             &lt;&lt;static&gt;&gt;
+-VIEW_ROWS: int                            &lt;&lt;static&gt;&gt;
+-WORLD_COLS: int                         &lt;&lt;static&gt;&gt;
+-WORLD_ROWS: int                        &lt;&lt;static&gt;&gt;
+-IMAGE_LIST_FILE_NAME: String    &lt;&lt;static&gt;&gt;
+-DEFAULT_IMAGE_NAME: String    &lt;&lt;static&gt;&gt;
+-DEFAULT_IMAGE_COLOR: int       &lt;&lt;static&gt;&gt;
+-LOAD_FILE_NAME: String            &lt;&lt;static&gt;&gt;
+-FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
+-FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
+-FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
+-FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
+-FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
+-FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
+-timeScale: double
+-imageStore: ImageStore
+-world: WorldModel
+-view: WorldView
+-scheduler: EventScheduler</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+settings()
 +setup()
 +draw()
 +keyPressed()
-+createDefaultBackground()         &lt;&lt;static&gt;&gt;
-+createImageColored()                 &lt;&lt;static&gt;&gt;
-+loadWorld()                                 &lt;&lt;static&gt;&gt;
-+scheduleActions()                       &lt;&lt;static&gt;&gt;
-+parseCommandLine()                  &lt;&lt;static&gt;&gt;
-+main()                                         &lt;&lt;static&gt;&gt;</y:MethodLabel>
+-createDefaultBackground()         &lt;&lt;static&gt;&gt;
+-createImageColored()                 &lt;&lt;static&gt;&gt;
+-loadWorld()                                 &lt;&lt;static&gt;&gt;
+-scheduleActions()                       &lt;&lt;static&gt;&gt;
+-parseCommandLine()                  &lt;&lt;static&gt;&gt;
+-main()                                         &lt;&lt;static&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
