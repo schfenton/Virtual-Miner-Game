@@ -21,7 +21,7 @@ public final class Point
             WorldModel world, EntityKind kind)
     {
         List<Entity> ofType = new LinkedList<>();
-        for (Entity entity : world.entities) {
+        for (Entity entity : world.getEntities()) {
             if (entity.kind == kind) {
                 ofType.add(entity);
             }
@@ -47,8 +47,8 @@ public final class Point
     }
 
     public boolean withinBounds(WorldModel world) {
-        return y >= 0 && y < world.numRows && x >= 0
-                && x < world.numCols;
+        return y >= 0 && y < world.getNumRows() && x >= 0
+                && x < world.getNumCols();
     }
 
     private Optional<Entity> nearestEntity(

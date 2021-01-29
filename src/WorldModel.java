@@ -9,11 +9,11 @@ public final class WorldModel
 {
     public static final int ORE_REACH = 1;
 
-    public int numRows;
-    public int numCols;
-    public Background background[][];
-    public Entity occupancy[][];
-    public Set<Entity> entities;
+    private final int numRows;
+    private final int numCols;
+    private final Background[][] background;
+    private final Entity[][] occupancy;
+    private final Set<Entity> entities;
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
@@ -27,12 +27,12 @@ public final class WorldModel
         }
     }
 
-    public void setOccupancyCell(Point pos, Entity entity)
+    private void setOccupancyCell(Point pos, Entity entity)
     {
         occupancy[pos.y][pos.x] = entity;
     }
 
-    public Entity getOccupancyCell(Point pos) {
+    private Entity getOccupancyCell(Point pos) {
         return occupancy[pos.y][pos.x];
     }
 
@@ -43,7 +43,7 @@ public final class WorldModel
     public void addEntity(Entity entity) {
         if (entity.position.withinBounds(this)) {
             setOccupancyCell(entity.position, entity);
-            entities.add(entity);
+            getEntities().add(entity);
         }
     }
 
@@ -61,14 +61,14 @@ public final class WorldModel
         removeEntityAt(entity.position);
     }
 
-    public void removeEntityAt(Point pos) {
+    private void removeEntityAt(Point pos) {
         if (pos.withinBounds(this) && getOccupancyCell(pos) != null) {
             Entity entity = getOccupancyCell(pos);
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
             entity.position = new Point(-1, -1);
-            entities.remove(entity);
+            getEntities().remove(entity);
             setOccupancyCell(pos, null);
         }
     }
@@ -126,14 +126,25 @@ public final class WorldModel
         }
     }
 
-    public Background getBackgroundCell(Point pos) {
+    private Background getBackgroundCell(Point pos) {
         return background[pos.y][pos.x];
     }
 
-    public void setBackgroundCell(Point pos, Background background)
+    private void setBackgroundCell(Point pos, Background background)
     {
         this.background[pos.y][pos.x] = background;
     }
 
 
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public Set<Entity> getEntities() {
+        return entities;
+    }
 }

@@ -36,9 +36,9 @@ public final class WorldView
 
     public static void shiftView(int colDelta, int rowDelta) {
         int newCol = Functions.clamp(viewport.getCol() + colDelta, 0,
-                world.numCols - viewport.getNumCols());
+                world.getNumCols() - viewport.getNumCols());
         int newRow = Functions.clamp(viewport.getRow() + rowDelta, 0,
-                world.numRows - viewport.getNumRows());
+                world.getNumRows() - viewport.getNumRows());
 
         viewport.shift(newCol, newRow);
     }
@@ -58,7 +58,7 @@ public final class WorldView
     }
 
     public void drawEntities() {
-        for (Entity entity : this.getWorld().entities) {
+        for (Entity entity : this.getWorld().getEntities()) {
             Point pos = entity.position;
 
             if (this.getViewport().contains(pos)) {
