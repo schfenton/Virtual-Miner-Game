@@ -10,8 +10,6 @@ import processing.core.PApplet;
 
 public final class Functions
 {
-    public static final int ORE_REACH = 1;
-
     public static final int COLOR_MASK = 0xffffff;
     public static final int KEYED_IMAGE_MIN = 5;
 

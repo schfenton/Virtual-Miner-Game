@@ -7,6 +7,8 @@ import java.util.Set;
 
 public final class WorldModel
 {
+    public static final int ORE_REACH = 1;
+
     public int numRows;
     public int numCols;
     public Background background[][];
@@ -95,8 +97,8 @@ public final class WorldModel
     }
 
     public Optional<Point> findOpenAround(Point pos) {
-        for (int dy = -Functions.ORE_REACH; dy <= Functions.ORE_REACH; dy++) {
-            for (int dx = -Functions.ORE_REACH; dx <= Functions.ORE_REACH; dx++) {
+        for (int dy = -ORE_REACH; dy <= ORE_REACH; dy++) {
+            for (int dx = -ORE_REACH; dx <= ORE_REACH; dx++) {
                 Point newPt = new Point(pos.x + dx, pos.y + dy);
                 if (newPt.withinBounds(this) && !isOccupied(newPt)) {
                     return Optional.of(newPt);
