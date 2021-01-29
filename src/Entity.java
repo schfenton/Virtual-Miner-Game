@@ -6,34 +6,33 @@ import processing.core.PImage;
 
 public final class Entity
 {
-    public static final Random rand = new Random();
+    private static final Random rand = new Random();
 
-    public static final String BLOB_KEY = "blob";
-    public static final String BLOB_ID_SUFFIX = " -- blob";
-    public static final int BLOB_PERIOD_SCALE = 4;
-    public static final int BLOB_ANIMATION_MIN = 50;
-    public static final int BLOB_ANIMATION_MAX = 150;
+    private static final String BLOB_KEY = "blob";
+    private static final String BLOB_ID_SUFFIX = " -- blob";
+    private static final int BLOB_PERIOD_SCALE = 4;
+    private static final int BLOB_ANIMATION_MIN = 50;
+    private static final int BLOB_ANIMATION_MAX = 150;
 
-    public static final String ORE_KEY = Functions.ORE_KEY;
-    public static final String ORE_ID_PREFIX = "ore -- ";
-    public static final int ORE_CORRUPT_MIN = 20000;
-    public static final int ORE_CORRUPT_MAX = 30000;
+    private static final String ORE_ID_PREFIX = "ore -- ";
+    private static final int ORE_CORRUPT_MIN = 20000;
+    private static final int ORE_CORRUPT_MAX = 30000;
 
-    public static final String QUAKE_KEY = "quake";
-    public static final String QUAKE_ID = "quake";
-    public static final int QUAKE_ACTION_PERIOD = 1100;
-    public static final int QUAKE_ANIMATION_PERIOD = 100;
-    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+    private static final String QUAKE_KEY = "quake";
+    private static final String QUAKE_ID = "quake";
+    private static final int QUAKE_ACTION_PERIOD = 1100;
+    private static final int QUAKE_ANIMATION_PERIOD = 100;
+    private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
     public EntityKind kind;
-    public String id;
+    private final String id;
     public Point position;
-    public List<PImage> images;
-    public int imageIndex;
-    public int resourceLimit;
-    public int resourceCount;
-    public int actionPeriod;
-    public int animationPeriod;
+    private final List<PImage> images;
+    private int imageIndex;
+    private final int resourceLimit;
+    private int resourceCount;
+    private final int actionPeriod;
+    private final int animationPeriod;
 
     public Entity(
             EntityKind kind,
@@ -138,7 +137,7 @@ public final class Entity
             Entity ore = Entity.createOre(ORE_ID_PREFIX + id, openPt.get(),
                     ORE_CORRUPT_MIN + rand.nextInt(
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
-                    imageStore.getImageList(ORE_KEY));
+                    imageStore.getImageList(Functions.ORE_KEY));
             world.addEntity(ore);
             ore.scheduleActions(scheduler, world, imageStore);
         }
@@ -150,7 +149,6 @@ public final class Entity
 
     public void executeQuakeActivity(
             WorldModel world,
-            ImageStore imageStore,
             EventScheduler scheduler)
     {
         scheduler.unscheduleAllEvents(this);
@@ -246,7 +244,7 @@ public final class Entity
         }
     }
 
-    public Point nextPositionMiner(
+    private Point nextPositionMiner(
             WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - position.x);
@@ -264,7 +262,7 @@ public final class Entity
         return newPos;
     }
 
-    public Point nextPositionOreBlob(WorldModel world, Point destPos) {
+    private Point nextPositionOreBlob(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.x - position.x);
         Point newPos = new Point(position.x + horiz, position.y);
 
@@ -362,7 +360,7 @@ public final class Entity
         }
     }
 
-    public boolean moveToFull(
+    private boolean moveToFull(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -385,7 +383,7 @@ public final class Entity
         }
     }
 
-    public boolean transformNotFull(
+    private boolean transformNotFull(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -408,7 +406,7 @@ public final class Entity
         return false;
     }
 
-    public void transformFull(
+    private void transformFull(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -425,7 +423,7 @@ public final class Entity
         miner.scheduleActions(scheduler, world, imageStore);
     }
 
-    public boolean moveToNotFull(
+    private boolean moveToNotFull(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -452,7 +450,7 @@ public final class Entity
         }
     }
 
-    public static boolean moveToOreBlob(
+    private static boolean moveToOreBlob(
             Entity blob,
             WorldModel world,
             Entity target,

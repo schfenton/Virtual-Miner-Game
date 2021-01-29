@@ -51,7 +51,7 @@ public final class Point
                 && x < world.numCols;
     }
 
-    public Optional<Entity> nearestEntity(
+    private Optional<Entity> nearestEntity(
             List<Entity> entities)
     {
         if (entities.isEmpty()) {
@@ -74,7 +74,7 @@ public final class Point
         }
     }
 
-    public int distanceSquared(Point p2) {
+    private int distanceSquared(Point p2) {
         int deltaX = this.x - p2.x;
         int deltaY = this.y - p2.y;
 

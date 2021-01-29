@@ -10,11 +10,13 @@ addEntity + removeEntity + moveEntity: In world instead of entity because it's c
 
 withinBounds: in Point instead of World because it's checking if the point is in the world
 
-shiftView: has to be static because cannot call non-static function from static VirtualWorld (had to add getters/setters
-to reference viewport)
+shiftView: has to be static because cannot call non-static function from static VirtualWorld (had to add getters
+to reference viewport and world attributes)
 
 getImages + setAlpha: has no reference to any other class methods or data, so just kept in Functions
 
 findNearest + nearestEntity: could be in WorldModel, but in Point because finding nearest entity in the world with respect to the point
 
 clamp: in Functions because static, does not relate directly to any classes
+
+Point attributes left public as interpreted in the project 1.

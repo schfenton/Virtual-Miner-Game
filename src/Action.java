@@ -1,10 +1,10 @@
 public final class Action
 {
-    public ActionKind kind;
-    public Entity entity;
-    public WorldModel world;
-    public ImageStore imageStore;
-    public int repeatCount;
+    private ActionKind kind;
+    private Entity entity;
+    private WorldModel world;
+    private ImageStore imageStore;
+    private int repeatCount;
 
     public Action(
             ActionKind kind,
@@ -50,7 +50,7 @@ public final class Action
 
         if (this.repeatCount != 1) {
             scheduler.scheduleEvent(this.entity,
-                    this.createAnimationAction(this.entity,
+                    createAnimationAction(this.entity,
                             Math.max(this.repeatCount - 1,
                                     0)), this.entity.getAnimationPeriod());
         }
@@ -81,7 +81,7 @@ public final class Action
 
             case QUAKE:
                 this.entity.executeQuakeActivity(this.world,
-                        this.imageStore, scheduler);
+                        scheduler);
                 break;
 
             case VEIN:

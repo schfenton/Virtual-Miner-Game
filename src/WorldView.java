@@ -35,17 +35,17 @@ public final class WorldView
     }
 
     public static void shiftView(int colDelta, int rowDelta) {
-        int newCol = Functions.clamp(viewport.col + colDelta, 0,
-                world.numCols - viewport.numCols);
-        int newRow = Functions.clamp(viewport.row + rowDelta, 0,
-                world.numRows - viewport.numRows);
+        int newCol = Functions.clamp(viewport.getCol() + colDelta, 0,
+                world.numCols - viewport.getNumCols());
+        int newRow = Functions.clamp(viewport.getRow() + rowDelta, 0,
+                world.numRows - viewport.getNumRows());
 
         viewport.shift(newCol, newRow);
     }
 
     public void drawBackground() {
-        for (int row = 0; row < this.getViewport().numRows; row++) {
-            for (int col = 0; col < this.getViewport().numCols; col++) {
+        for (int row = 0; row < this.getViewport().getNumRows(); row++) {
+            for (int col = 0; col < this.getViewport().getNumCols(); col++) {
                 Point worldPoint = this.getViewport().viewportToWorld(col, row);
                 Optional<PImage> image =
                         this.getWorld().getBackgroundImage(worldPoint);
