@@ -143,7 +143,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                ActivityAction.createAction(this, world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 actionPeriod);
     }
 
@@ -178,7 +178,7 @@ public final class Entity
         }
 
         scheduler.scheduleEvent(this,
-                ActivityAction.createAction(this, world, imageStore),
+                Factory.createActivityAction(this, world, imageStore),
                 nextPeriod);
     }
 
@@ -217,7 +217,7 @@ public final class Entity
                 || !transformNotFull(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent(this,
-                    ActivityAction.createAction(this, world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     actionPeriod);
         }
     }
@@ -291,48 +291,48 @@ public final class Entity
         switch (kind) {
             case MINER_FULL:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        AnimationAction.createAction(this, 0), this.getAnimationPeriod());
+                        Factory.createAnimationAction(this, 0), this.getAnimationPeriod());
                 break;
 
             case MINER_NOT_FULL:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        AnimationAction.createAction(this, 0),
+                        Factory.createAnimationAction(this, 0),
                         this.getAnimationPeriod());
                 break;
 
             case ORE:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
             case ORE_BLOB:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 scheduler.scheduleEvent(this,
-                        AnimationAction.createAction(this, 0),
+                        Factory.createAnimationAction(this, 0),
                         this.getAnimationPeriod());
                 break;
 
             case QUAKE:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
-                scheduler.scheduleEvent(this, AnimationAction.createAction(this,
+                scheduler.scheduleEvent(this, Factory.createAnimationAction(this,
                         QUAKE_ANIMATION_REPEAT_COUNT),
                         this.getAnimationPeriod());
                 break;
 
             case VEIN:
                 scheduler.scheduleEvent(this,
-                        ActivityAction.createAction(this, world, imageStore),
+                        Factory.createActivityAction(this, world, imageStore),
                         this.actionPeriod);
                 break;
 
@@ -355,7 +355,7 @@ public final class Entity
         }
         else {
             scheduler.scheduleEvent(this,
-                    ActivityAction.createAction(this, world, imageStore),
+                    Factory.createActivityAction(this, world, imageStore),
                     actionPeriod);
         }
     }
