@@ -89,10 +89,10 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="115.69666935577266" width="259.2852702919113" x="18.485214190104813" y="755.4964323001504"/>
+          <y:Geometry height="115.69666935577266" width="249.69450172355823" x="18.485214190104813" y="755.4964323001504"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.8017578125" x="92.24175623970564" xml:space="preserve" y="3.0">ImageStore<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.8017578125" x="87.44637195552912" xml:space="preserve" y="3.0">ImageStore<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">-images: Map&lt;String, List&lt;PImage&gt;&gt;
 -defaultImages: List&lt;PImage&gt;</y:AttributeLabel>
@@ -231,16 +231,8 @@
 -WORLD_COLS: int                         &lt;&lt;static&gt;&gt;
 -WORLD_ROWS: int                        &lt;&lt;static&gt;&gt;
 -IMAGE_LIST_FILE_NAME: String    &lt;&lt;static&gt;&gt;
--DEFAULT_IMAGE_NAME: String    &lt;&lt;static&gt;&gt;
 -DEFAULT_IMAGE_COLOR: int       &lt;&lt;static&gt;&gt;
 -LOAD_FILE_NAME: String            &lt;&lt;static&gt;&gt;
--FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
--FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
--FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
--FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
--FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
--FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
--timeScale: double
 -imageStore: ImageStore
 -world: WorldModel
 -view: WorldView
@@ -249,11 +241,7 @@
 +setup()
 +draw()
 +keyPressed()
--createDefaultBackground()         &lt;&lt;static&gt;&gt;
--createImageColored()                 &lt;&lt;static&gt;&gt;
--loadWorld()                                 &lt;&lt;static&gt;&gt;
 -scheduleActions()                       &lt;&lt;static&gt;&gt;
--parseCommandLine()                  &lt;&lt;static&gt;&gt;
 -main()                                         &lt;&lt;static&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
@@ -263,7 +251,7 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="869.6725306526828" width="365.0" x="-197.9172870977784" y="1066.862506003647"/>
+          <y:Geometry height="1061.4879020197443" width="365.0" x="-197.9172870977784" y="1066.862506003647"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="66.10546875" x="149.447265625" xml:space="preserve" y="3.0">Functions<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
@@ -308,9 +296,16 @@
 +BGND_NUM_PROPERTIES: int                    &lt;&lt;static&gt;&gt;
 +BGND_ID: int                                &lt;&lt;static&gt;&gt;
 +BGND_COL: int                               &lt;&lt;static&gt;&gt;
-+BGND_ROW: int                               &lt;&lt;static&gt;&gt;</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+loadImages()                                &lt;&lt;static&gt;&gt;
-+processImageLine()                          &lt;&lt;static&gt;&gt;
++BGND_ROW: int                               &lt;&lt;static&gt;&gt;
+
++FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
++FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
++FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
++FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
++FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
++FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
++timeScale: double</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+processImageLine()                          &lt;&lt;static&gt;&gt;
 +getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
 +setAlpha()                                  &lt;&lt;static&gt;&gt;
 +load()                                      &lt;&lt;static&gt;&gt;
@@ -321,7 +316,12 @@
 +parseOre(): boolean                         &lt;&lt;static&gt;&gt;
 +parseSmith(): boolean                       &lt;&lt;static&gt;&gt;
 +parseVein(): boolean                        &lt;&lt;static&gt;&gt;
-+clamp()                                      &lt;&lt;static&gt;&gt;</y:MethodLabel>
++clamp()                                      &lt;&lt;static&gt;&gt;
++loadImages()                                &lt;&lt;static&gt;&gt;
++loadWorld()                                 &lt;&lt;static&gt;&gt;
++parseCommandLine()                  &lt;&lt;static&gt;&gt;
+
+</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -462,14 +462,16 @@ VEIN</y:AttributeLabel>
       <data key="d5" xml:space="preserve"><![CDATA[Just creates instances]]></data>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="328.31933366667636" width="365.0" x="269.8607971715047" y="1037.3880905864114"/>
+          <y:Geometry height="328.31933366667636" width="365.0" x="269.8607971715047" y="1066.862506003647"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="50.9599609375" x="157.02001953125" xml:space="preserve" y="3.0">Factory<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
-            <y:AttributeLabel xml:space="preserve"/>
+            <y:AttributeLabel xml:space="preserve">-DEFAULT_IMAGE_NAME: String    &lt;&lt;static&gt;&gt;</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+createActivityAction(): ActivityAction  &lt;&lt;static&gt;&gt;
-+createAnimationAction(): AnimationAction  &lt;&lt;static&gt;&gt;</y:MethodLabel>
++createAnimationAction(): AnimationAction  &lt;&lt;static&gt;&gt;
++createDefaultBackground()         &lt;&lt;static&gt;&gt;
++createImageColored()                 &lt;&lt;static&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>

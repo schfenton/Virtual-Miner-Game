@@ -1,7 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
 import processing.core.*;
 
 public final class VirtualWorld extends PApplet
@@ -21,19 +17,9 @@ public final class VirtualWorld extends PApplet
     private static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
 
     private static final String IMAGE_LIST_FILE_NAME = "imagelist";
-    private static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 0x808080;
 
     private static final String LOAD_FILE_NAME = "world.sav";
-
-    private static final String FAST_FLAG = "-fast";
-    private static final String FASTER_FLAG = "-faster";
-    private static final String FASTEST_FLAG = "-fastest";
-    private static final double FAST_SCALE = 0.5;
-    private static final double FASTER_SCALE = 0.25;
-    private static final double FASTEST_SCALE = 0.10;
-
-    private static double timeScale = 1.0;
 
     private ImageStore imageStore;
     private WorldModel world;
@@ -51,16 +37,16 @@ public final class VirtualWorld extends PApplet
     */
     public void setup() {
         this.imageStore = new ImageStore(
-                createImageColored(TILE_WIDTH, TILE_HEIGHT,
+                Factory.createImageColored(TILE_WIDTH, TILE_HEIGHT,
                                    DEFAULT_IMAGE_COLOR));
         this.world = new WorldModel(WORLD_ROWS, WORLD_COLS,
-                                    createDefaultBackground(imageStore));
+                                    Factory.createDefaultBackground(imageStore));
         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world, TILE_WIDTH,
                                   TILE_HEIGHT);
-        this.scheduler = new EventScheduler(timeScale);
+        this.scheduler = new EventScheduler(Functions.timeScale);
 
-        loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
-        loadWorld(world, LOAD_FILE_NAME, imageStore);
+        Functions.loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
+        Functions.loadWorld(world, LOAD_FILE_NAME, imageStore);
 
         scheduleActions(world, scheduler, imageStore);
 
@@ -100,45 +86,6 @@ public final class VirtualWorld extends PApplet
         }
     }
 
-    private static Background createDefaultBackground(ImageStore imageStore) {
-        return new Background(DEFAULT_IMAGE_NAME,
-                              imageStore.getImageList(DEFAULT_IMAGE_NAME));
-    }
-
-    private static PImage createImageColored(int width, int height, int color) {
-        PImage img = new PImage(width, height, RGB);
-        img.loadPixels();
-        for (int i = 0; i < img.pixels.length; i++) {
-            img.pixels[i] = color;
-        }
-        img.updatePixels();
-        return img;
-    }
-
-    private static void loadImages(
-            String filename, ImageStore imageStore, PApplet screen)
-    {
-        try {
-            Scanner in = new Scanner(new File(filename));
-            Functions.loadImages(in, imageStore, screen);
-        }
-        catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    private static void loadWorld(
-            WorldModel world, String filename, ImageStore imageStore)
-    {
-        try {
-            Scanner in = new Scanner(new File(filename));
-            Functions.load(in, world, imageStore);
-        }
-        catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
     private static void scheduleActions(
             WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
@@ -147,24 +94,8 @@ public final class VirtualWorld extends PApplet
         }
     }
 
-    private static void parseCommandLine(String[] args) {
-        for (String arg : args) {
-            switch (arg) {
-                case FAST_FLAG:
-                    timeScale = Math.min(FAST_SCALE, timeScale);
-                    break;
-                case FASTER_FLAG:
-                    timeScale = Math.min(FASTER_SCALE, timeScale);
-                    break;
-                case FASTEST_FLAG:
-                    timeScale = Math.min(FASTEST_SCALE, timeScale);
-                    break;
-            }
-        }
-    }
-
     public static void main(String[] args) {
-        parseCommandLine(args);
+        Functions.parseCommandLine(args);
         PApplet.main(VirtualWorld.class);
     }
 }

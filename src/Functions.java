@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,16 @@ import processing.core.PApplet;
 
 public final class Functions
 {
+
+    public static final String FAST_FLAG = "-fast";
+    public static final String FASTER_FLAG = "-faster";
+    public static final String FASTEST_FLAG = "-fastest";
+    public static final double FAST_SCALE = 0.5;
+    public static final double FASTER_SCALE = 0.25;
+    public static final double FASTEST_SCALE = 0.10;
+
+    public static double timeScale = 1.0;
+    
     public static final int COLOR_MASK = 0xffffff;
     public static final int KEYED_IMAGE_MIN = 5;
 
@@ -268,4 +280,43 @@ public final class Functions
         return Math.min(high, Math.max(value, low));
     }
 
+    static void loadImages(
+            String filename, ImageStore imageStore, PApplet screen)
+    {
+        try {
+            Scanner in = new Scanner(new File(filename));
+            loadImages(in, imageStore, screen);
+        }
+        catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    static void loadWorld(
+            WorldModel world, String filename, ImageStore imageStore)
+    {
+        try {
+            Scanner in = new Scanner(new File(filename));
+            load(in, world, imageStore);
+        }
+        catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    static void parseCommandLine(String[] args) {
+        for (String arg : args) {
+            switch (arg) {
+                case FAST_FLAG:
+                    timeScale = Math.min(FAST_SCALE, timeScale);
+                    break;
+                case FASTER_FLAG:
+                    timeScale = Math.min(FASTER_SCALE, timeScale);
+                    break;
+                case FASTEST_FLAG:
+                    timeScale = Math.min(FASTEST_SCALE, timeScale);
+                    break;
+            }
+        }
+    }
 }
