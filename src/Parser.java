@@ -1,3 +1,9 @@
+import processing.core.PApplet;
+import processing.core.PImage;
+
+import java.util.List;
+import java.util.Map;
+
 public class Parser {
 
     public static double timeScale = 1.0;
@@ -51,6 +57,11 @@ public class Parser {
     public static final int VEIN_COL = 2;
     public static final int VEIN_ROW = 3;
     public static final int VEIN_ACTION_PERIOD = 4;
+
+    public static final int KEYED_IMAGE_MIN = 5;
+    private static final int KEYED_RED_IDX = 2;
+    private static final int KEYED_GREEN_IDX = 3;
+    private static final int KEYED_BLUE_IDX = 4;
 
     public static boolean parseBackground(
             String[] properties, WorldModel world, ImageStore imageStore)
@@ -181,5 +192,26 @@ public class Parser {
         }
 
         return false;
+    }
+
+    public static void processImageLine(
+            Map<String, List<PImage>> images, String line, PApplet screen)
+    {
+        String[] attrs = line.split("\\s");
+        if (attrs.length >= 2) {
+            String key = attrs[0];
+            PImage img = screen.loadImage(attrs[1]);
+            if (img != null && img.width != -1) {
+                List<PImage> imgs = Functions.getImages(images, key);
+                imgs.add(img);
+
+                if (attrs.length >= KEYED_IMAGE_MIN) {
+                    int r = Integer.parseInt(attrs[KEYED_RED_IDX]);
+                    int g = Integer.parseInt(attrs[KEYED_GREEN_IDX]);
+                    int b = Integer.parseInt(attrs[KEYED_BLUE_IDX]);
+                    Functions.setAlpha(img, screen.color(r, g, b), 0);
+                }
+            }
+        }
     }
 }

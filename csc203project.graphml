@@ -251,75 +251,21 @@
       <data key="d4" xml:space="preserve"/>
       <data key="d6">
         <y:UMLClassNode>
-          <y:Geometry height="1061.4879020197443" width="365.0" x="-197.9172870977784" y="1066.862506003647"/>
+          <y:Geometry height="181.8355274234043" width="365.0" x="-197.9172870977784" y="1066.862506003647"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="2.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="66.10546875" x="149.447265625" xml:space="preserve" y="3.0">Functions<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">+rand: Random                                &lt;&lt;static&gt;&gt;
-+SMITH_ID: int                               &lt;&lt;static&gt;&gt;
-+SMITH_COL: int                              &lt;&lt;static&gt;&gt;
-+SMITH_ROW: int                              &lt;&lt;static&gt;&gt;
-+VEIN_KEY: String                            &lt;&lt;static&gt;&gt;
-+VEIN_NUM_PROPERTIES: int                    &lt;&lt;static&gt;&gt;
-+VEIN_ID: int                                &lt;&lt;static&gt;&gt;
-+VEIN_COL: int                               &lt;&lt;static&gt;&gt;
-+VEIN_ROW: int                               &lt;&lt;static&gt;&gt;
-+VEIN_ACTION_PERIOD: int                     &lt;&lt;static&gt;&gt;
-+MINER_KEY: String                           &lt;&lt;static&gt;&gt;
-+MINER_NUM_PROPERTIES: int                   &lt;&lt;static&gt;&gt;
-+MINER_ID: int                               &lt;&lt;static&gt;&gt;
-+MINER_COL: int                              &lt;&lt;static&gt;&gt;
-+MINER_ROW: int                              &lt;&lt;static&gt;&gt;
-+MINER_LIMIT: int                            &lt;&lt;static&gt;&gt;
-+MINER_ACTION_PERIOD: int                    &lt;&lt;static&gt;&gt;
-+MINER_ANIMATION_PERIOD: int                 &lt;&lt;static&gt;&gt;
-+OBSTACLE_KEY: String                        &lt;&lt;static&gt;&gt;
-+OBSTACLE_NUM_PROPERTIES: int                &lt;&lt;static&gt;&gt;
-+OBSTACLE_ID: int                            &lt;&lt;static&gt;&gt;
-+OBSTACLE_COL: int                           &lt;&lt;static&gt;&gt;
-+OBSTACLE_ROW: int                           &lt;&lt;static&gt;&gt;
-+ORE_NUM_PROPERTIES: int                     &lt;&lt;static&gt;&gt;
-+ORE_ID: int                                 &lt;&lt;static&gt;&gt;
-+ORE_COL: int                                &lt;&lt;static&gt;&gt;
-+ORE_ROW: int                                &lt;&lt;static&gt;&gt;
-+ORE_ACTION_PERIOD: int                      &lt;&lt;static&gt;&gt;
-+SMITH_KEY: String                           &lt;&lt;static&gt;&gt;
-+SMITH_NUM_PROPERTIES: int                   &lt;&lt;static&gt;&gt;
 +COLOR_MASK: int                             &lt;&lt;static&gt;&gt;
-+KEYED_IMAGE_MIN: int                        &lt;&lt;static&gt;&gt;
-+KEYED_RED_IDX: int                        &lt;&lt;static&gt;&gt;
-+KEYED_GREEN_IDX: int                        &lt;&lt;static&gt;&gt;
-+KEYED_BLUE_IDX: int                        &lt;&lt;static&gt;&gt;
-+PROPERTY_KEY: int                           &lt;&lt;static&gt;&gt;
-+BGND_KEY: String                            &lt;&lt;static&gt;&gt;
-+BGND_NUM_PROPERTIES: int                    &lt;&lt;static&gt;&gt;
-+BGND_ID: int                                &lt;&lt;static&gt;&gt;
-+BGND_COL: int                               &lt;&lt;static&gt;&gt;
-+BGND_ROW: int                               &lt;&lt;static&gt;&gt;
-
-+FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
-+FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
-+FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
-+FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
-+FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
-+FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
-+timeScale: double</y:AttributeLabel>
-            <y:MethodLabel xml:space="preserve">+processImageLine()                          &lt;&lt;static&gt;&gt;
-+getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
+</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+getImages(): List&lt;PImage&gt;                   &lt;&lt;static&gt;&gt;
 +setAlpha()                                  &lt;&lt;static&gt;&gt;
 +load()                                      &lt;&lt;static&gt;&gt;
-+processLine(): boolean                      &lt;&lt;static&gt;&gt;
-+parseBackground(): boolean                  &lt;&lt;static&gt;&gt;
-+parseMiner(): boolean                       &lt;&lt;static&gt;&gt;
-+parseObstacle(): boolean                    &lt;&lt;static&gt;&gt;
-+parseOre(): boolean                         &lt;&lt;static&gt;&gt;
-+parseSmith(): boolean                       &lt;&lt;static&gt;&gt;
-+parseVein(): boolean                        &lt;&lt;static&gt;&gt;
 +clamp()                                      &lt;&lt;static&gt;&gt;
 +loadImages()                                &lt;&lt;static&gt;&gt;
 +loadWorld()                                 &lt;&lt;static&gt;&gt;
-+parseCommandLine()                  &lt;&lt;static&gt;&gt;
+
 
 </y:MethodLabel>
           </y:UML>
@@ -472,6 +418,78 @@ VEIN</y:AttributeLabel>
 +createAnimationAction(): AnimationAction  &lt;&lt;static&gt;&gt;
 +createDefaultBackground()         &lt;&lt;static&gt;&gt;
 +createImageColored()                 &lt;&lt;static&gt;&gt;</y:MethodLabel>
+          </y:UML>
+        </y:UMLClassNode>
+      </data>
+    </node>
+    <node id="n17">
+      <data key="d4" xml:space="preserve"/>
+      <data key="d5" xml:space="preserve"><![CDATA[Functions to parse data]]></data>
+      <data key="d6">
+        <y:UMLClassNode>
+          <y:Geometry height="906.882640448162" width="365.0" x="697.0734445927014" y="1066.862506003647"/>
+          <y:Fill color="#C0C0C0" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="2.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="44.47900390625" x="160.260498046875" xml:space="preserve" y="3.0">Parser<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+          <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
+            <y:AttributeLabel xml:space="preserve">+FAST_FLAG: String                      &lt;&lt;static&gt;&gt;
++FASTER_FLAG: String                  &lt;&lt;static&gt;&gt;
++FASTEST_FLAG: String                &lt;&lt;static&gt;&gt;
++FAST_SCALE: double                  &lt;&lt;static&gt;&gt;
++FASTER_SCALE: double              &lt;&lt;static&gt;&gt;
++FASTEST_SCALE: double            &lt;&lt;static&gt;&gt;
++timeScale: double                       &lt;&lt;static&gt;&gt;
+
++PROPERTY_KEY: int                           &lt;&lt;static&gt;&gt;
+
++BGND_KEY: String                            &lt;&lt;static&gt;&gt;
++BGND_NUM_PROPERTIES: int                    &lt;&lt;static&gt;&gt;
++BGND_ID: int                                &lt;&lt;static&gt;&gt;
++BGND_COL: int                               &lt;&lt;static&gt;&gt;
++BGND_ROW: int                               &lt;&lt;static&gt;&gt;
++SMITH_KEY: String                           &lt;&lt;static&gt;&gt;
++SMITH_NUM_PROPERTIES: int                   &lt;&lt;static&gt;&gt;
++SMITH_ID: int                               &lt;&lt;static&gt;&gt;
++SMITH_COL: int                              &lt;&lt;static&gt;&gt;
++SMITH_ROW: int                              &lt;&lt;static&gt;&gt;
++VEIN_KEY: String                            &lt;&lt;static&gt;&gt;
++VEIN_NUM_PROPERTIES: int                    &lt;&lt;static&gt;&gt;
++VEIN_ID: int                                &lt;&lt;static&gt;&gt;
++VEIN_COL: int                               &lt;&lt;static&gt;&gt;
++VEIN_ROW: int                               &lt;&lt;static&gt;&gt;
++VEIN_ACTION_PERIOD: int                     &lt;&lt;static&gt;&gt;
++MINER_KEY: String                           &lt;&lt;static&gt;&gt;
++MINER_NUM_PROPERTIES: int                   &lt;&lt;static&gt;&gt;
++MINER_ID: int                               &lt;&lt;static&gt;&gt;
++MINER_COL: int                              &lt;&lt;static&gt;&gt;
++MINER_ROW: int                              &lt;&lt;static&gt;&gt;
++MINER_LIMIT: int                            &lt;&lt;static&gt;&gt;
++MINER_ACTION_PERIOD: int                    &lt;&lt;static&gt;&gt;
++MINER_ANIMATION_PERIOD: int                 &lt;&lt;static&gt;&gt;
++OBSTACLE_KEY: String                        &lt;&lt;static&gt;&gt;
++OBSTACLE_NUM_PROPERTIES: int                &lt;&lt;static&gt;&gt;
++OBSTACLE_ID: int                            &lt;&lt;static&gt;&gt;
++OBSTACLE_COL: int                           &lt;&lt;static&gt;&gt;
++OBSTACLE_ROW: int                           &lt;&lt;static&gt;&gt;
++ORE_NUM_PROPERTIES: int                     &lt;&lt;static&gt;&gt;
++ORE_ID: int                                 &lt;&lt;static&gt;&gt;
++ORE_COL: int                                &lt;&lt;static&gt;&gt;
++ORE_ROW: int                                &lt;&lt;static&gt;&gt;
++ORE_ACTION_PERIOD: int                      &lt;&lt;static&gt;&gt;
+
++KEYED_IMAGE_MIN: int                        &lt;&lt;static&gt;&gt;
++KEYED_RED_IDX: int                        &lt;&lt;static&gt;&gt;
++KEYED_GREEN_IDX: int                        &lt;&lt;static&gt;&gt;
++KEYED_BLUE_IDX: int                        &lt;&lt;static&gt;&gt;</y:AttributeLabel>
+            <y:MethodLabel xml:space="preserve">+parseBackground(): boolean                  &lt;&lt;static&gt;&gt;
++parseMiner(): boolean                       &lt;&lt;static&gt;&gt;
++parseObstacle(): boolean                    &lt;&lt;static&gt;&gt;
++parseOre(): boolean                         &lt;&lt;static&gt;&gt;
++parseSmith(): boolean                       &lt;&lt;static&gt;&gt;
++parseVein(): boolean                        &lt;&lt;static&gt;&gt;
++parseCommandLine()                  &lt;&lt;static&gt;&gt;
++processLine(): boolean                      &lt;&lt;static&gt;&gt;
++processImageLine()                          &lt;&lt;static&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>

@@ -12,12 +12,6 @@ public final class Functions
 {
     
     public static final int COLOR_MASK = 0xffffff;
-    public static final int KEYED_IMAGE_MIN = 5;
-
-    private static final int KEYED_RED_IDX = 2;
-    private static final int KEYED_GREEN_IDX = 3;
-    private static final int KEYED_BLUE_IDX = 4;
-
 
     public static void loadImages(
             Scanner in, ImageStore imageStore, PApplet screen)
@@ -25,7 +19,7 @@ public final class Functions
         int lineNumber = 0;
         while (in.hasNextLine()) {
             try {
-                processImageLine(imageStore.getImages(), in.nextLine(), screen);
+                Parser.processImageLine(imageStore.getImages(), in.nextLine(), screen);
             }
             catch (NumberFormatException e) {
                 System.out.println(
@@ -33,27 +27,6 @@ public final class Functions
                                       lineNumber));
             }
             lineNumber++;
-        }
-    }
-
-    public static void processImageLine(
-            Map<String, List<PImage>> images, String line, PApplet screen)
-    {
-        String[] attrs = line.split("\\s");
-        if (attrs.length >= 2) {
-            String key = attrs[0];
-            PImage img = screen.loadImage(attrs[1]);
-            if (img != null && img.width != -1) {
-                List<PImage> imgs = getImages(images, key);
-                imgs.add(img);
-
-                if (attrs.length >= KEYED_IMAGE_MIN) {
-                    int r = Integer.parseInt(attrs[KEYED_RED_IDX]);
-                    int g = Integer.parseInt(attrs[KEYED_GREEN_IDX]);
-                    int b = Integer.parseInt(attrs[KEYED_BLUE_IDX]);
-                    setAlpha(img, screen.color(r, g, b), 0);
-                }
-            }
         }
     }
 
@@ -109,10 +82,6 @@ public final class Functions
         }
     }
 
-    public static int clamp(int value, int low, int high) {
-        return Math.min(high, Math.max(value, low));
-    }
-
     static void loadImages(
             String filename, ImageStore imageStore, PApplet screen)
     {
@@ -135,6 +104,10 @@ public final class Functions
         catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static int clamp(int value, int low, int high) {
+        return Math.min(high, Math.max(value, low));
     }
 
 }
