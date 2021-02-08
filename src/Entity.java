@@ -19,9 +19,6 @@ public final class Entity
     private static final int ORE_CORRUPT_MAX = 30000;
 
     private static final String QUAKE_KEY = "quake";
-    private static final String QUAKE_ID = "quake";
-    private static final int QUAKE_ACTION_PERIOD = 1100;
-    private static final int QUAKE_ANIMATION_PERIOD = 100;
     private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
 
     public EntityKind kind;
@@ -55,77 +52,6 @@ public final class Entity
         this.animationPeriod = animationPeriod;
     }
 
-    public static Entity createBlacksmith(
-            String id, Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.BLACKSMITH, id, position, images, 0, 0, 0,
-                          0);
-    }
-
-    public static Entity createMinerFull(
-            String id,
-            int resourceLimit,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.MINER_FULL, id, position, images,
-                          resourceLimit, resourceLimit, actionPeriod,
-                          animationPeriod);
-    }
-
-    public static Entity createMinerNotFull(
-            String id,
-            int resourceLimit,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.MINER_NOT_FULL, id, position, images,
-                          resourceLimit, 0, actionPeriod, animationPeriod);
-    }
-
-    public static Entity createObstacle(
-            String id, Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0,
-                          0);
-    }
-
-    public static Entity createOre(
-            String id, Point position, int actionPeriod, List<PImage> images)
-    {
-        return new Entity(EntityKind.ORE, id, position, images, 0, 0,
-                          actionPeriod, 0);
-    }
-
-    public static Entity createOreBlob(
-            String id,
-            Point position,
-            int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
-    {
-        return new Entity(EntityKind.ORE_BLOB, id, position, images, 0, 0,
-                          actionPeriod, animationPeriod);
-    }
-
-    public static Entity createQuake(
-            Point position, List<PImage> images)
-    {
-        return new Entity(EntityKind.QUAKE, QUAKE_ID, position, images, 0, 0,
-                          QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
-    }
-
-    public static Entity createVein(
-            String id, Point position, int actionPeriod, List<PImage> images)
-    {
-        return new Entity(EntityKind.VEIN, id, position, images, 0, 0,
-                          actionPeriod, 0);
-    }
-
     public void executeVeinActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -134,7 +60,7 @@ public final class Entity
         Optional<Point> openPt = world.findOpenAround(position);
 
         if (openPt.isPresent()) {
-            Entity ore = Entity.createOre(ORE_ID_PREFIX + id, openPt.get(),
+            Entity ore = Factory.createOre(ORE_ID_PREFIX + id, openPt.get(),
                     ORE_CORRUPT_MIN + rand.nextInt(
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
                     imageStore.getImageList(Parser.ORE_KEY));
@@ -168,7 +94,7 @@ public final class Entity
             Point tgtPos = blobTarget.get().position;
 
             if (moveToOreBlob(this, world, blobTarget.get(), scheduler)) {
-                Entity quake = Entity.createQuake(tgtPos,
+                Entity quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(QUAKE_KEY));
 
                 world.addEntity(quake);
@@ -192,7 +118,7 @@ public final class Entity
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        Entity blob = Entity.createOreBlob(id + BLOB_ID_SUFFIX, pos,
+        Entity blob = Factory.createOreBlob(id + BLOB_ID_SUFFIX, pos,
                 actionPeriod / BLOB_PERIOD_SCALE,
                 BLOB_ANIMATION_MIN + rand.nextInt(
                         BLOB_ANIMATION_MAX
@@ -389,7 +315,7 @@ public final class Entity
             ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
-            Entity miner = Entity.createMinerFull(this.id, this.resourceLimit,
+            Entity miner = Factory.createMinerFull(this.id, this.resourceLimit,
                     this.position, this.actionPeriod,
                     this.animationPeriod,
                     this.images);
@@ -411,7 +337,7 @@ public final class Entity
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Entity miner = Entity.createMinerNotFull(this.id, this.resourceLimit,
+        Entity miner = Factory.createMinerNotFull(this.id, this.resourceLimit,
                 this.position, this.actionPeriod,
                 this.animationPeriod,
                 this.images);
