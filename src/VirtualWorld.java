@@ -43,7 +43,7 @@ public final class VirtualWorld extends PApplet
                                     Factory.createDefaultBackground(imageStore));
         this.view = new WorldView(VIEW_ROWS, VIEW_COLS, this, world, TILE_WIDTH,
                                   TILE_HEIGHT);
-        this.scheduler = new EventScheduler(Functions.timeScale);
+        this.scheduler = new EventScheduler(Parser.timeScale);
 
         Functions.loadImages(IMAGE_LIST_FILE_NAME, imageStore, this);
         Functions.loadWorld(world, LOAD_FILE_NAME, imageStore);
@@ -95,7 +95,7 @@ public final class VirtualWorld extends PApplet
     }
 
     public static void main(String[] args) {
-        Functions.parseCommandLine(args);
+        Parser.parseCommandLine(args);
         PApplet.main(VirtualWorld.class);
     }
 }

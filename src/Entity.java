@@ -137,7 +137,7 @@ public final class Entity
             Entity ore = Entity.createOre(ORE_ID_PREFIX + id, openPt.get(),
                     ORE_CORRUPT_MIN + rand.nextInt(
                             ORE_CORRUPT_MAX - ORE_CORRUPT_MIN),
-                    imageStore.getImageList(Functions.ORE_KEY));
+                    imageStore.getImageList(Parser.ORE_KEY));
             world.addEntity(ore);
             ore.scheduleActions(scheduler, world, imageStore);
         }
