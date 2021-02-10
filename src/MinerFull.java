@@ -10,7 +10,6 @@ public class MinerFull implements Animated {
     private final List<PImage> images;
     private int imageIndex;
     private final int resourceLimit;
-    private int resourceCount;
     private final int actionPeriod;
     private final int animationPeriod;
 
@@ -19,7 +18,6 @@ public class MinerFull implements Animated {
             Point position,
             List<PImage> images,
             int resourceLimit,
-            int resourceCount,
             int actionPeriod,
             int animationPeriod)
     {
@@ -28,7 +26,6 @@ public class MinerFull implements Animated {
         this.images = images;
         this.imageIndex = 0;
         this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
         this.actionPeriod = actionPeriod;
         this.animationPeriod = animationPeriod;
     }

@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Factory {
+    public static final Random rand = new Random();
 
     public static final String DEFAULT_IMAGE_NAME = "background_default";
-
-    public static final Random rand = new Random();
 
     public static final String BLOB_KEY = "blob";
     public static final String BLOB_ID_SUFFIX = " -- blob";
@@ -63,9 +62,7 @@ public class Factory {
             int animationPeriod,
             List<PImage> images)
     {
-        return new MinerFull(id, position, images,
-                          resourceLimit, resourceLimit, actionPeriod,
-                          animationPeriod);
+        return new MinerFull(id, position, images, resourceLimit, actionPeriod, animationPeriod);
     }
 
     public static MinerNotFull createMinerNotFull(
