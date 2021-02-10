@@ -18,11 +18,11 @@ public final class Point
     }
 
     public Optional<Entity> findNearest(
-            WorldModel world, EntityKind kind)
+            WorldModel world, Class kind)
     {
         List<Entity> ofType = new LinkedList<>();
         for (Entity entity : world.getEntities()) {
-            if (entity.kind == kind) {
+            if (entity.getClass() == kind) { // is this how it'd work?
                 ofType.add(entity);
             }
         }
@@ -59,10 +59,10 @@ public final class Point
         }
         else {
             Entity nearest = entities.get(0);
-            int nearestDistance = nearest.position.distanceSquared(this);
+            int nearestDistance = nearest.getPosition().distanceSquared(this);
 
             for (Entity other : entities) {
-                int otherDistance = other.position.distanceSquared(this);
+                int otherDistance = other.getPosition().distanceSquared(this);
 
                 if (otherDistance < nearestDistance) {
                     nearest = other;

@@ -2,23 +2,37 @@ import processing.core.PConstants;
 import processing.core.PImage;
 
 import java.util.List;
+import java.util.Random;
 
 public class Factory {
 
-    private static final String DEFAULT_IMAGE_NAME = "background_default";
+    public static final String DEFAULT_IMAGE_NAME = "background_default";
 
-    private static final String QUAKE_ID = "quake";
-    private static final int QUAKE_ACTION_PERIOD = 1100;
-    private static final int QUAKE_ANIMATION_PERIOD = 100;
+    public static final Random rand = new Random();
 
-    public static ActivityAction createActivityAction(Entity entity, WorldModel world, ImageStore imageStore) {
+    public static final String BLOB_KEY = "blob";
+    public static final String BLOB_ID_SUFFIX = " -- blob";
+    public static final int BLOB_PERIOD_SCALE = 4;
+    public static final int BLOB_ANIMATION_MIN = 50;
+    public static final int BLOB_ANIMATION_MAX = 150;
+
+    public static final String QUAKE_ID = "quake";
+    public static final int QUAKE_ACTION_PERIOD = 1100;
+    public static final int QUAKE_ANIMATION_PERIOD = 100;
+    public static final String QUAKE_KEY = "quake";
+    public static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
+
+    public static final String ORE_ID_PREFIX = "ore -- ";
+    public static final int ORE_CORRUPT_MIN = 20000;
+    public static final int ORE_CORRUPT_MAX = 30000;
+
+    public static ActivityAction createActivityAction(Actionable entity, WorldModel world, ImageStore imageStore) {
         return new ActivityAction(entity, world, imageStore);
     }
 
-    public static AnimationAction createAnimationAction(Entity entity, int repeatCount) {
+    public static AnimationAction createAnimationAction(Animated entity, int repeatCount) {
         return new AnimationAction(entity, repeatCount);
     }
-
 
     public static Background createDefaultBackground(ImageStore imageStore) {
         return new Background(DEFAULT_IMAGE_NAME,
@@ -35,14 +49,13 @@ public class Factory {
         return img;
     }
 
-    public static Entity createBlacksmith(
+    public static Blacksmith createBlacksmith(
             String id, Point position, List<PImage> images)
     {
-        return new Entity(EntityKind.BLACKSMITH, id, position, images, 0, 0, 0,
-                          0);
+        return new Blacksmith(id, position, images);
     }
 
-    public static Entity createMinerFull(
+    public static MinerFull createMinerFull(
             String id,
             int resourceLimit,
             Point position,
@@ -50,12 +63,12 @@ public class Factory {
             int animationPeriod,
             List<PImage> images)
     {
-        return new Entity(EntityKind.MINER_FULL, id, position, images,
+        return new MinerFull(id, position, images,
                           resourceLimit, resourceLimit, actionPeriod,
                           animationPeriod);
     }
 
-    public static Entity createMinerNotFull(
+    public static MinerNotFull createMinerNotFull(
             String id,
             int resourceLimit,
             Point position,
@@ -63,46 +76,43 @@ public class Factory {
             int animationPeriod,
             List<PImage> images)
     {
-        return new Entity(EntityKind.MINER_NOT_FULL, id, position, images,
+        return new MinerNotFull(id, position, images,
                           resourceLimit, 0, actionPeriod, animationPeriod);
     }
 
-    public static Entity createObstacle(
+    public static Obstacle createObstacle(
             String id, Point position, List<PImage> images)
     {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0,
-                          0);
+        return new Obstacle(id, position, images);
     }
 
-    public static Entity createOre(
+    public static Ore createOre(
             String id, Point position, int actionPeriod, List<PImage> images)
     {
-        return new Entity(EntityKind.ORE, id, position, images, 0, 0,
-                          actionPeriod, 0);
+        return new Ore(id, position, images, actionPeriod);
     }
 
-    public static Entity createOreBlob(
+    public static OreBlob createOreBlob(
             String id,
             Point position,
             int actionPeriod,
-            int animationPeriod,
-            List<PImage> images)
+            ImageStore imageStore)
     {
-        return new Entity(EntityKind.ORE_BLOB, id, position, images, 0, 0,
-                          actionPeriod, animationPeriod);
+        return new OreBlob(id + BLOB_ID_SUFFIX, position,
+                imageStore.getImageList(BLOB_KEY),
+                actionPeriod / BLOB_PERIOD_SCALE,
+                BLOB_ANIMATION_MIN + rand.nextInt(BLOB_ANIMATION_MAX - BLOB_ANIMATION_MIN));
     }
 
-    public static Entity createQuake(
+    public static Quake createQuake(
             Point position, List<PImage> images)
     {
-        return new Entity(EntityKind.QUAKE, QUAKE_ID, position, images, 0, 0,
-                          QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
+        return new Quake(QUAKE_ID, position, images, QUAKE_ACTION_PERIOD, QUAKE_ANIMATION_PERIOD);
     }
 
-    public static Entity createVein(
+    public static Vein createVein(
             String id, Point position, int actionPeriod, List<PImage> images)
     {
-        return new Entity(EntityKind.VEIN, id, position, images, 0, 0,
-                          actionPeriod, 0);
+        return new Vein(id, position, images, actionPeriod);
     }
 }

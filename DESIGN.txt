@@ -20,3 +20,12 @@ findNearest + nearestEntity: could be in WorldModel, but in Point because findin
 clamp: in Functions because static, does not relate directly to any classes
 
 Point attributes left public as interpreted in the project 1.
+
+---------------------------------------------------
+
+Project 2 Changes
+
+Interface for Actionable Entities also has executeActivity method because, although not all actions are activities,
+all entities that can schedule actions have some activity behavior (i.e. does not make sense to have entities that can
+only schedule actions with no activity).
+

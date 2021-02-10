@@ -41,14 +41,14 @@ public final class WorldModel
        intended destination cell.
     */
     public void addEntity(Entity entity) {
-        if (entity.position.withinBounds(this)) {
-            setOccupancyCell(entity.position, entity);
+        if (entity.getPosition().withinBounds(this)) {
+            setOccupancyCell(entity.getPosition(), entity);
             getEntities().add(entity);
         }
     }
 
     public void tryAddEntity(Entity entity) {
-        if (isOccupied(entity.position)) {
+        if (isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
@@ -58,7 +58,7 @@ public final class WorldModel
     }
 
     public void removeEntity(Entity entity) {
-        removeEntityAt(entity.position);
+        removeEntityAt(entity.getPosition());
     }
 
     private void removeEntityAt(Point pos) {
@@ -67,19 +67,19 @@ public final class WorldModel
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
-            entity.position = new Point(-1, -1);
+            entity.setPosition(new Point(-1, -1));
             getEntities().remove(entity);
             setOccupancyCell(pos, null);
         }
     }
 
     public void moveEntity(Entity entity, Point pos) {
-        Point oldPos = entity.position;
+        Point oldPos = entity.getPosition();
         if (pos.withinBounds(this) && !pos.equals(oldPos)) {
             setOccupancyCell(oldPos, null);
             removeEntityAt(pos);
             setOccupancyCell(pos, entity);
-            entity.position = pos;
+            entity.setPosition(pos);
         }
     }
 

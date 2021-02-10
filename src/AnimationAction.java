@@ -1,10 +1,10 @@
 public final class AnimationAction implements Action
 {
-    private Entity entity;
+    private Animated entity;
     private int repeatCount;
 
     public AnimationAction(
-            Entity entity,
+            Animated entity,
             int repeatCount)
     {
         this.entity = entity;
@@ -18,7 +18,7 @@ public final class AnimationAction implements Action
             scheduler.scheduleEvent(this.entity,
                     Factory.createAnimationAction(  this.entity,
                                                     Math.max(this.repeatCount - 1, 0)),
-                                                    this.entity.getAnimationPeriod()  );
+                                                    this.entity.getAnimationPeriod());
         }
     }
 

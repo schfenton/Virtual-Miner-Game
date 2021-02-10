@@ -8,6 +8,7 @@ public final class Background
     private List<PImage> images;
     private int imageIndex;
 
+
     public Background(String id, List<PImage> images) {
         this.id = id;
         this.images = images;

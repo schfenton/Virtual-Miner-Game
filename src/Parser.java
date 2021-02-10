@@ -117,7 +117,7 @@ public class Parser {
                                  Integer.parseInt(properties[ORE_ROW]));
             Entity entity = Factory.createOre(properties[ORE_ID], pt, Integer.parseInt(
                     properties[ORE_ACTION_PERIOD]),
-                                      imageStore.getImageList(ORE_KEY));
+                    imageStore.getImageList(ORE_KEY));
             world.tryAddEntity(entity);
         }
 
