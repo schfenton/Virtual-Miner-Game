@@ -123,7 +123,7 @@ public class MinerNotFull implements Animated {
         else {
             Point nextPos = this.nextPositionMiner(world, target.getPosition());
 
-            if (!this.position.equals(nextPos)) {
+            if (!position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());

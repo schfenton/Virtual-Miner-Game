@@ -70,7 +70,7 @@ public class OreBlob implements Entity, Actionable, Animated {
         if (blobTarget.isPresent()) {
             Point tgtPos = blobTarget.get().getPosition();
 
-            if (moveToOreBlob(this, world, blobTarget.get(), scheduler)) {
+            if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
                 Quake quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(Factory.QUAKE_KEY));
 
@@ -85,27 +85,26 @@ public class OreBlob implements Entity, Actionable, Animated {
                 nextPeriod);
     }
 
-    private static boolean moveToOreBlob(
-            OreBlob blob,
+    private boolean moveToOreBlob(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
     {
-        if (blob.getPosition().adjacent(target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             world.removeEntity(target);
             scheduler.unscheduleAllEvents(target);
             return true;
         }
         else {
-            Point nextPos = blob.nextPositionOreBlob(world, target.getPosition());
+            Point nextPos = this.nextPositionOreBlob(world, target.getPosition());
 
-            if (!blob.position.equals(nextPos)) {
+            if (!this.position.equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                world.moveEntity(blob, nextPos);
+                world.moveEntity(this, nextPos);
             }
             return false;
         }
