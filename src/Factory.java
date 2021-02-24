@@ -25,11 +25,11 @@ public class Factory {
     public static final int ORE_CORRUPT_MIN = 20000;
     public static final int ORE_CORRUPT_MAX = 30000;
 
-    public static ActivityAction createActivityAction(Actionable entity, WorldModel world, ImageStore imageStore) {
+    public static ActivityAction createActivityAction(ActiveEntity entity, WorldModel world, ImageStore imageStore) {
         return new ActivityAction(entity, world, imageStore);
     }
 
-    public static AnimationAction createAnimationAction(Animated entity, int repeatCount) {
+    public static AnimationAction createAnimationAction(AnimatedEntity entity, int repeatCount) {
         return new AnimationAction(entity, repeatCount);
     }
 

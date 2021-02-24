@@ -1,11 +1,11 @@
 public final class ActivityAction implements Action
 {
-    private Actionable entity;
+    private ActiveEntity entity;
     private WorldModel world;
     private ImageStore imageStore;
 
     public ActivityAction(
-            Actionable entity,
+            ActiveEntity entity,
             WorldModel world,
             ImageStore imageStore)
     {

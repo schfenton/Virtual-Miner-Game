@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Optional;
 
-public class MinerFull implements Animated {
+public class MinerFull implements AnimatedEntity {
 
     private final String id;
     private Point position;

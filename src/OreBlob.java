@@ -1,14 +1,7 @@
 import processing.core.PImage;
 import java.util.*;
 
-public class OreBlob implements Entity, Actionable, Animated {
-
-    private final String id;
-    private Point position;
-    private final List<PImage> images;
-    private int imageIndex;
-    private final int actionPeriod;
-    private final int animationPeriod;
+public class OreBlob extends AnimatedEntity {
 
     public OreBlob(
             String id,
@@ -17,33 +10,7 @@ public class OreBlob implements Entity, Actionable, Animated {
             int actionPeriod,
             int animationPeriod)
     {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public PImage getCurrentImage() {
-        return images.get(imageIndex);
-    }
-
-    public void nextImage(){
-        imageIndex = (imageIndex + 1) % images.size();
-    }
-
-    @Override
-    public int getAnimationPeriod() {
-        return animationPeriod;
+        super(id, position, images, actionPeriod, animationPeriod);
     }
 
     public void scheduleActions(
@@ -52,7 +19,7 @@ public class OreBlob implements Entity, Actionable, Animated {
             ImageStore imageStore) {
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
+                getActionPeriod());
         scheduler.scheduleEvent(this,
                 Factory.createAnimationAction(this, 0),
                 this.getAnimationPeriod());
@@ -64,8 +31,8 @@ public class OreBlob implements Entity, Actionable, Animated {
             EventScheduler scheduler)
     {
         Optional<Entity> blobTarget =
-                position.findNearest(world, Vein.class);
-        long nextPeriod = actionPeriod;
+                getPosition().findNearest(world, Vein.class);
+        long nextPeriod = getActionPeriod();
 
         if (blobTarget.isPresent()) {
             Point tgtPos = blobTarget.get().getPosition();
@@ -75,7 +42,7 @@ public class OreBlob implements Entity, Actionable, Animated {
                         imageStore.getImageList(Factory.QUAKE_KEY));
 
                 world.addEntity(quake);
-                nextPeriod += actionPeriod;
+                nextPeriod += getActionPeriod();
                 quake.scheduleActions(scheduler, world, imageStore);
             }
         }
@@ -98,7 +65,7 @@ public class OreBlob implements Entity, Actionable, Animated {
         else {
             Point nextPos = this.nextPositionOreBlob(world, target.getPosition());
 
-            if (!this.position.equals(nextPos)) {
+            if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());
@@ -111,18 +78,18 @@ public class OreBlob implements Entity, Actionable, Animated {
     }
 
     private Point nextPositionOreBlob(WorldModel world, Point destPos) {
-        int horiz = Integer.signum(destPos.x - position.x);
-        Point newPos = new Point(position.x + horiz, position.y);
+        int horiz = Integer.signum(destPos.x - getPosition().x);
+        Point newPos = new Point(getPosition().x + horiz, getPosition().y);
 
         Optional<Entity> occupant = world.getOccupant(newPos);
 
         if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore))) {
-            int vert = Integer.signum(destPos.y - position.y);
-            newPos = new Point(position.x, position.y + vert);
+            int vert = Integer.signum(destPos.y - getPosition().y);
+            newPos = new Point(getPosition().x, getPosition().y + vert);
             occupant = world.getOccupant(newPos);
 
             if (vert == 0 || (occupant.isPresent() && !(occupant.get() instanceof Ore))) {
-                newPos = position;
+                newPos = getPosition();
             }
         }
 

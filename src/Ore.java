@@ -2,13 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Ore implements Actionable {
-
-    private final String id;
-    private Point position;
-    private final List<PImage> images;
-    private int imageIndex;
-    private final int actionPeriod;
+public class Ore extends ActiveEntity {
 
     public Ore(
             String id,
@@ -16,32 +10,7 @@ public class Ore implements Actionable {
             List<PImage> images,
             int actionPeriod)
     {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.actionPeriod = actionPeriod;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public PImage getCurrentImage() {
-        return images.get(imageIndex);
-    }
-
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore) {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
+        super(id, position, images, actionPeriod);
     }
 
     public void executeActivity(
@@ -49,13 +18,13 @@ public class Ore implements Actionable {
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        Point pos = position;
+        Point pos = getPosition();
 
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
 
-        OreBlob blob = Factory.createOreBlob(id, pos,
-                actionPeriod, imageStore);
+        OreBlob blob = Factory.createOreBlob(getId(), pos,
+                getActionPeriod(), imageStore);
 
         world.addEntity(blob);
         blob.scheduleActions(scheduler, world, imageStore);

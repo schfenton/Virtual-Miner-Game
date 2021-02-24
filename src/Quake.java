@@ -1,14 +1,7 @@
 import processing.core.PImage;
 import java.util.List;
 
-public class Quake implements Animated {
-
-    private final String id;
-    private Point position;
-    private final List<PImage> images;
-    private int imageIndex;
-    private final int actionPeriod;
-    private final int animationPeriod;
+public class Quake extends AnimatedEntity {
 
     public Quake(
             String id,
@@ -17,33 +10,7 @@ public class Quake implements Animated {
             int actionPeriod,
             int animationPeriod)
     {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public PImage getCurrentImage() {
-        return images.get(imageIndex);
-    }
-
-    public void nextImage(){
-        imageIndex = (imageIndex + 1) % images.size();
-    }
-
-    @Override
-    public int getAnimationPeriod() {
-        return animationPeriod;
+        super(id, position, images, actionPeriod, animationPeriod);
     }
 
     public void scheduleActions(
@@ -53,7 +20,7 @@ public class Quake implements Animated {
     {
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
-                this.actionPeriod);
+                getActionPeriod());
         scheduler.scheduleEvent(this, Factory.createAnimationAction(this,
                 Factory.QUAKE_ANIMATION_REPEAT_COUNT),
                 this.getAnimationPeriod());
