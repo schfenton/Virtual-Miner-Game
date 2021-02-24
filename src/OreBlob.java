@@ -1,7 +1,7 @@
 import processing.core.PImage;
 import java.util.*;
 
-public class OreBlob extends AnimatedEntity {
+public class OreBlob extends MovableEntity {
 
     public OreBlob(
             String id,
@@ -40,32 +40,12 @@ public class OreBlob extends AnimatedEntity {
                 nextPeriod);
     }
 
-    private boolean moveTo(
-            WorldModel world,
-            Entity target,
-            EventScheduler scheduler)
-    {
-        if (this.getPosition().adjacent(target.getPosition())) {
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
-        }
-        else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
-
-            if (!getPosition().equals(nextPos)) {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent()) {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
+    protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
     }
 
-    private Point nextPosition(WorldModel world, Point destPos) {
+    protected Point nextPosition(WorldModel world, Point destPos){
         int horiz = Integer.signum(destPos.x - getPosition().x);
         Point newPos = new Point(getPosition().x + horiz, getPosition().y);
 

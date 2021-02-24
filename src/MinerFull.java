@@ -36,7 +36,7 @@ public class MinerFull extends Miner {
         }
     }
 
-    private boolean transformFull(
+    private void transformFull(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
@@ -51,7 +51,5 @@ public class MinerFull extends Miner {
 
         world.addEntity(miner);
         miner.scheduleActions(scheduler, world, imageStore);
-
-        return true;
     }
 }

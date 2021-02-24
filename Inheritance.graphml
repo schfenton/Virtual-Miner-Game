@@ -499,7 +499,8 @@
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="61.7763671875" x="92.6004739663955" xml:space="preserve" y="3.0">MinerFull<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve"/>
-            <y:MethodLabel xml:space="preserve">+executeActivity(): void</y:MethodLabel>
+            <y:MethodLabel xml:space="preserve">+executeActivity(): void
+-transformFull(): boolean</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -515,7 +516,8 @@
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">-resourceCount: int</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">+executeActivity(): void
-#_moveToHelper(): void</y:MethodLabel>
+#_moveToHelper(): void
+-transformNotFull(): boolean</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -546,8 +548,8 @@
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve"/>
             <y:MethodLabel xml:space="preserve">+executeActivity(): void
--moveTo(): boolean
--nextPosition(): Point</y:MethodLabel>
+#_moveToHelper(): void
+#nextPosition(): Point</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -627,9 +629,7 @@
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve">-resourceLimit: int</y:AttributeLabel>
             <y:MethodLabel xml:space="preserve">#getResourceLimit(): int
-#moveTo(): boolean
-#_moveToHelper(): void
--nextPositionMiner(): point</y:MethodLabel>
+#nextPosition(): Point</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
@@ -644,7 +644,9 @@
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bolditalic" hasBackgroundColor="false" hasLineColor="false" height="19.92626953125" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="92.12451171875" x="132.11287362492385" xml:space="preserve" y="3.0">MovableEntity<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="-0.03703090122767855" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
           <y:UML clipContent="true" constraint="" hasDetailsColor="false" omitDetails="false" stereotype="" use3DEffect="false">
             <y:AttributeLabel xml:space="preserve"/>
-            <y:MethodLabel xml:space="preserve"/>
+            <y:MethodLabel xml:space="preserve">#moveTo(): boolean
+#_moveToHelper(): void
+#nextPosition(): Point    &lt;&lt;abstract&gt;&gt;</y:MethodLabel>
           </y:UML>
         </y:UMLClassNode>
       </data>
