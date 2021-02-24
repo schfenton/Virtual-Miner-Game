@@ -53,7 +53,7 @@ public class OreBlob extends AnimatedEntity {
         else {
             Point nextPos = this.nextPosition(world, target.getPosition());
 
-            if (!this.getPosition().equals(nextPos)) {
+            if (!getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
                 if (occupant.isPresent()) {
                     scheduler.unscheduleAllEvents(occupant.get());

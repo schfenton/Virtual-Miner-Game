@@ -49,7 +49,7 @@ abstract class Miner extends AnimatedEntity {
 
     protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){}
 
-    protected Point nextPositionMiner(
+    private Point nextPositionMiner(
             WorldModel world, Point destPos)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);

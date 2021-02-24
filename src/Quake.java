@@ -28,13 +28,6 @@ public class Quake extends AnimatedEntity {
 
     public void executeActivity(
             WorldModel world,
-            EventScheduler scheduler)
-    {
-        this.executeActivity(world, null, scheduler);
-    }
-
-    public void executeActivity(
-            WorldModel world,
             ImageStore imageStore,
             EventScheduler scheduler)
     {
