@@ -13,18 +13,6 @@ public class OreBlob extends AnimatedEntity {
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public void scheduleActions(
-            EventScheduler scheduler,
-            WorldModel world,
-            ImageStore imageStore) {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                getActionPeriod());
-        scheduler.scheduleEvent(this,
-                Factory.createAnimationAction(this, 0),
-                this.getAnimationPeriod());
-    }
-
     public void executeActivity(
             WorldModel world,
             ImageStore imageStore,
@@ -37,7 +25,7 @@ public class OreBlob extends AnimatedEntity {
         if (blobTarget.isPresent()) {
             Point tgtPos = blobTarget.get().getPosition();
 
-            if (moveToOreBlob(world, blobTarget.get(), scheduler)) {
+            if (moveTo(world, blobTarget.get(), scheduler)) {
                 Quake quake = Factory.createQuake(tgtPos,
                         imageStore.getImageList(Factory.QUAKE_KEY));
 
@@ -52,7 +40,7 @@ public class OreBlob extends AnimatedEntity {
                 nextPeriod);
     }
 
-    private boolean moveToOreBlob(
+    private boolean moveTo(
             WorldModel world,
             Entity target,
             EventScheduler scheduler)
@@ -63,7 +51,7 @@ public class OreBlob extends AnimatedEntity {
             return true;
         }
         else {
-            Point nextPos = this.nextPositionOreBlob(world, target.getPosition());
+            Point nextPos = this.nextPosition(world, target.getPosition());
 
             if (!this.getPosition().equals(nextPos)) {
                 Optional<Entity> occupant = world.getOccupant(nextPos);
@@ -77,7 +65,7 @@ public class OreBlob extends AnimatedEntity {
         }
     }
 
-    private Point nextPositionOreBlob(WorldModel world, Point destPos) {
+    private Point nextPosition(WorldModel world, Point destPos) {
         int horiz = Integer.signum(destPos.x - getPosition().x);
         Point newPos = new Point(getPosition().x + horiz, getPosition().y);
 

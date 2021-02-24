@@ -35,5 +35,4 @@ only schedule actions with no activity).
 Project 3 Changes
 
 Left Action as interface because no data to pull up.
-
-
+MovableEntity new interface because common no data pulled up.
