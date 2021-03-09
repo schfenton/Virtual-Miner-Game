@@ -26,19 +26,23 @@ abstract class Miner extends MovableEntity {
     protected Point nextPosition(
             WorldModel world, Point destPos)
     {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz, getPosition().y);
+        List<Point> points;
+        PathingStrategy strat = new AStarPathingStrategy();
 
-        if (horiz == 0 || world.isOccupied(newPos)) {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x, getPosition().y + vert);
+        points = strat.computePath(getPosition(), destPos,
+                p ->  p.withinBounds(world) && !world.isOccupied(p),
+                PathingStrategy.NEIGHBORS,
+                PathingStrategy.CARDINAL_NEIGHBORS);
+        //DIAGONAL_NEIGHBORS);
+        //DIAGONAL_CARDINAL_NEIGHBORS);
 
-            if (vert == 0 || world.isOccupied(newPos)) {
-                newPos = getPosition();
-            }
+        if (points.size() == 0)
+        {
+            System.out.println("No path found");
+            return getPosition();
         }
 
-        return newPos;
+        return points.get(0);
     }
 
 }
