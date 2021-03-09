@@ -23,9 +23,7 @@ abstract class AnimatedEntity extends ActiveEntity {
             EventScheduler scheduler,
             WorldModel world,
             ImageStore imageStore) {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                this.getActionPeriod());
+        super.scheduleActions(scheduler, world, imageStore);
         scheduler.scheduleEvent(this,
                 Factory.createAnimationAction(this, 0), this.getAnimationPeriod());
     }

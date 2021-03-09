@@ -18,9 +18,7 @@ public class Quake extends AnimatedEntity {
             WorldModel world,
             ImageStore imageStore)
     {
-        scheduler.scheduleEvent(this,
-                Factory.createActivityAction(this, world, imageStore),
-                getActionPeriod());
+        super.scheduleActions(scheduler, world, imageStore);
         scheduler.scheduleEvent(this, Factory.createAnimationAction(this,
                 Factory.QUAKE_ANIMATION_REPEAT_COUNT),
                 this.getAnimationPeriod());
