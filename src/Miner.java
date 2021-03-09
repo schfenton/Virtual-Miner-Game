@@ -33,12 +33,9 @@ abstract class Miner extends MovableEntity {
                 p ->  p.withinBounds(world) && !world.isOccupied(p),
                 PathingStrategy.NEIGHBORS,
                 PathingStrategy.CARDINAL_NEIGHBORS);
-        //DIAGONAL_NEIGHBORS);
-        //DIAGONAL_CARDINAL_NEIGHBORS);
 
         if (points.size() == 0)
         {
-            System.out.println("No path found");
             return getPosition();
         }
 
