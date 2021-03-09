@@ -23,23 +23,4 @@ abstract class Miner extends MovableEntity {
         return resourceLimit;
     }
 
-    protected Point nextPosition(
-            WorldModel world, Point destPos)
-    {
-        List<Point> points;
-        PathingStrategy strat = new AStarPathingStrategy();
-
-        points = strat.computePath(getPosition(), destPos,
-                p ->  p.withinBounds(world) && !world.isOccupied(p),
-                PathingStrategy.NEIGHBORS,
-                PathingStrategy.CARDINAL_NEIGHBORS);
-
-        if (points.size() == 0)
-        {
-            return getPosition();
-        }
-
-        return points.get(0);
-    }
-
 }

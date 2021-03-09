@@ -35,6 +35,27 @@ abstract class MovableEntity extends AnimatedEntity {
 
     protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){}
 
-    abstract Point nextPosition(WorldModel world, Point destPos);
+    Point nextPosition(WorldModel world, Point destPos) {
+        List<Point> points;
+        PathingStrategy strat = new AStarPathingStrategy();
+
+        points = strat.computePath(getPosition(), destPos,
+                p -> _nextPositionPassHelper(world, p),
+                PathingStrategy.NEIGHBORS,
+                PathingStrategy.CARDINAL_NEIGHBORS);
+        //DIAGONAL_NEIGHBORS);
+        //DIAGONAL_CARDINAL_NEIGHBORS);
+
+        if (points.size() == 0)
+        {
+            return getPosition();
+        }
+
+        return points.get(0);
+    }
+
+    protected boolean _nextPositionPassHelper(WorldModel world, Point p){
+        return p.withinBounds(world) && !world.isOccupied(p);
+    }
 
 }

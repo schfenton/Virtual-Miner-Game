@@ -45,25 +45,8 @@ public class OreBlob extends MovableEntity {
         scheduler.unscheduleAllEvents(target);
     }
 
-    protected Point nextPosition(WorldModel world, Point destPos){
-        List<Point> points;
-        PathingStrategy strat = new AStarPathingStrategy();
-
-        points = strat.computePath(getPosition(), destPos,
-                p -> {
-                    Optional<Entity> occupant = world.getOccupant(p);
-                    return p.withinBounds(world) && !world.isOccupied(p) || (occupant.isPresent() && occupant.get() instanceof Ore);
-                },
-                PathingStrategy.NEIGHBORS,
-                PathingStrategy.CARDINAL_NEIGHBORS);
-        //DIAGONAL_NEIGHBORS);
-        //DIAGONAL_CARDINAL_NEIGHBORS);
-
-        if (points.size() == 0)
-        {
-            return getPosition();
-        }
-
-        return points.get(0);
+    protected boolean _nextPositionPassHelper(WorldModel world, Point p){
+        Optional<Entity> occupant = world.getOccupant(p);
+        return p.withinBounds(world) && !world.isOccupied(p) || (occupant.isPresent() && occupant.get() instanceof Ore);
     }
 }
