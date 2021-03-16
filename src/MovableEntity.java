@@ -35,7 +35,7 @@ abstract class MovableEntity extends AnimatedEntity {
 
     protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){}
 
-    Point nextPosition(WorldModel world, Point destPos) {
+    protected Point nextPosition(WorldModel world, Point destPos) {
         List<Point> points;
         PathingStrategy strat = new AStarPathingStrategy();
 
