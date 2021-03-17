@@ -1,5 +1,7 @@
 import processing.core.*;
 
+import java.util.Random;
+
 public final class VirtualWorld extends PApplet
 {
     private static final int TIMER_ACTION_PERIOD = 100;
@@ -13,8 +15,8 @@ public final class VirtualWorld extends PApplet
 
     private static final int VIEW_COLS = VIEW_WIDTH / TILE_WIDTH;
     private static final int VIEW_ROWS = VIEW_HEIGHT / TILE_HEIGHT;
-    private static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE;
-    private static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
+    public static final int WORLD_COLS = VIEW_COLS * WORLD_WIDTH_SCALE;
+    public static final int WORLD_ROWS = VIEW_ROWS * WORLD_HEIGHT_SCALE;
 
     private static final String IMAGE_LIST_FILE_NAME = "imagelist";
     private static final int DEFAULT_IMAGE_COLOR = 0x808080;
@@ -83,6 +85,16 @@ public final class VirtualWorld extends PApplet
                     break;
             }
             WorldView.shiftView(dx, dy);
+        }
+    }
+
+    public void mousePressed() {
+        Point pressed = WorldView.getViewport().viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
+        if(!world.isOccupied(pressed)) {
+            God entity = Factory.createGod(pressed, imageStore.getImageList("god"));
+            world.tryAddEntity(entity);
+            entity.scheduleActions(scheduler, world, imageStore);
+            redraw();
         }
     }
 

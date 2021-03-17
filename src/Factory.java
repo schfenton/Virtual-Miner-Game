@@ -15,6 +15,10 @@ public class Factory {
     public static final int BLOB_ANIMATION_MIN = 50;
     public static final int BLOB_ANIMATION_MAX = 150;
 
+    public static final String GOD_KEY = "god";
+    public static final int GOD_ACTION_PERIOD = 6000;
+    public static final int GOD_ANIMATION_PERIOD = 2;
+
     public static final String QUAKE_ID = "quake";
     public static final int QUAKE_ACTION_PERIOD = 1100;
     public static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -111,5 +115,9 @@ public class Factory {
             String id, Point position, int actionPeriod, List<PImage> images)
     {
         return new Vein(id, position, images, actionPeriod);
+    }
+
+    public static God createGod(Point position, List<PImage> images){
+        return new God("god_"+position.y+"_"+position.x, position, images, GOD_ACTION_PERIOD, GOD_ANIMATION_PERIOD);
     }
 }

@@ -1,12 +1,11 @@
 import processing.core.PImage;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public final class WorldModel
 {
+    private static Random random = new Random();
+
     public static final int ORE_REACH = 1;
 
     private final int numRows;
@@ -146,5 +145,14 @@ public final class WorldModel
 
     public Set<Entity> getEntities() {
         return entities;
+    }
+
+    public Point pickEmptyPoint(){
+        Point point = null;
+        while(point == null || !point.withinBounds(this)){
+            point = new Point(random.nextInt(VirtualWorld.WORLD_COLS), random.nextInt(VirtualWorld.WORLD_ROWS));
+            System.out.println(point);
+        }
+        return point;
     }
 }

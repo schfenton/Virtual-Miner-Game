@@ -40,9 +40,10 @@ public class OreBlob extends MovableEntity {
                 nextPeriod);
     }
 
-    protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){
-        world.removeEntity(target);
-        scheduler.unscheduleAllEvents(target);
+    protected void nextToTarget(WorldModel world, Point target, EventScheduler scheduler){
+        Entity occ = world.getOccupant(target).get();
+        world.removeEntity(occ);
+        scheduler.unscheduleAllEvents(occ);
     }
 
     protected boolean _nextPositionPassHelper(WorldModel world, Point p){

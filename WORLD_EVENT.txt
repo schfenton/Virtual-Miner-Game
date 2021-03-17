@@ -1,0 +1,3 @@
+Clicking anywhere on the world spawns a god with a pantheon. The god will roam around the world, adding mountains of ore
+for the miners. If a miner comes close to the pantheon, they will become an angel who seeks out ore blobs to cure them
+by turning them into miners.

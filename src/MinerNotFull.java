@@ -62,10 +62,11 @@ public class MinerNotFull extends Miner {
         return false;
     }
 
-    protected void _moveToHelper(WorldModel world, Entity target, EventScheduler scheduler){
+    protected void nextToTarget(WorldModel world, Point target, EventScheduler scheduler){
         resourceCount += 1;
-        world.removeEntity(target);
-        scheduler.unscheduleAllEvents(target);
+        Entity occ = world.getOccupant(target).get();
+        world.removeEntity(occ);
+        scheduler.unscheduleAllEvents(occ);
     }
 
 }

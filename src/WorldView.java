@@ -26,11 +26,11 @@ public final class WorldView
         this.viewport = new Viewport(numRows, numCols);
     }
 
-    private Viewport getViewport(){
+    public static Viewport getViewport(){
         return viewport;
     }
 
-    private WorldModel getWorld(){
+    public static WorldModel getWorld(){
         return world;
     }
 
@@ -44,11 +44,11 @@ public final class WorldView
     }
 
     private void drawBackground() {
-        for (int row = 0; row < this.getViewport().getNumRows(); row++) {
-            for (int col = 0; col < this.getViewport().getNumCols(); col++) {
-                Point worldPoint = this.getViewport().viewportToWorld(col, row);
+        for (int row = 0; row < viewport.getNumRows(); row++) {
+            for (int col = 0; col < viewport.getNumCols(); col++) {
+                Point worldPoint = viewport.viewportToWorld(col, row);
                 Optional<PImage> image =
-                        this.getWorld().getBackgroundImage(worldPoint);
+                        world.getBackgroundImage(worldPoint);
                 if (image.isPresent()) {
                     this.screen.image(image.get(), col * this.tileWidth,
                             row * this.tileHeight);
@@ -58,11 +58,11 @@ public final class WorldView
     }
 
     private void drawEntities() {
-        for (Entity entity : this.getWorld().getEntities()) {
+        for (Entity entity : world.getEntities()) {
             Point pos = entity.getPosition();
 
-            if (this.getViewport().contains(pos)) {
-                Point viewPoint = this.getViewport().worldToViewport(pos.x, pos.y);
+            if (viewport.contains(pos)) {
+                Point viewPoint = viewport.worldToViewport(pos.x, pos.y);
                 this.screen.image(entity.getCurrentImage(),
                         viewPoint.x * this.tileWidth,
                         viewPoint.y * this.tileHeight);
