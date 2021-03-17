@@ -151,7 +151,6 @@ public final class WorldModel
         Point point = null;
         while(point == null || !point.withinBounds(this)){
             point = new Point(random.nextInt(VirtualWorld.WORLD_COLS), random.nextInt(VirtualWorld.WORLD_ROWS));
-            System.out.println(point);
         }
         return point;
     }
