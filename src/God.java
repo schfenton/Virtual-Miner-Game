@@ -26,7 +26,7 @@ public class God extends MovableEntity {
             target = world.pickEmptyPoint();
         }
 
-        if(moveTo(world, target, scheduler)){
+        if(moveTo(world, target, scheduler) && !world.isOccupied(target)){
             Vein entity = Factory.createVein("vein_" + target.y + "_" + target.x, target,
                     Factory.rand.nextInt(11000 - 9000) + 9000,
                     imageStore.getImageList(Parser.VEIN_KEY));
