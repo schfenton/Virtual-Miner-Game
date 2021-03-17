@@ -16,7 +16,7 @@ public class Factory {
     public static final int BLOB_ANIMATION_MAX = 150;
 
     public static final String GOD_KEY = "god";
-    public static final int GOD_ACTION_PERIOD = 6000;
+    public static final int GOD_ACTION_PERIOD = 1000;
     public static final int GOD_ANIMATION_PERIOD = 2;
 
     public static final String QUAKE_ID = "quake";
@@ -118,6 +118,7 @@ public class Factory {
     }
 
     public static God createGod(Point position, List<PImage> images){
-        return new God("god_"+position.y+"_"+position.x, position, images, GOD_ACTION_PERIOD, GOD_ANIMATION_PERIOD);
+        return new God(GOD_KEY+"_"+position.y+"_"+position.x, position, images,
+                GOD_ACTION_PERIOD, GOD_ANIMATION_PERIOD);
     }
 }

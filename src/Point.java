@@ -22,7 +22,7 @@ public final class Point
     {
         List<Entity> ofType = new LinkedList<>();
         for (Entity entity : world.getEntities()) {
-            if (entity.getClass() == kind) { // is this how it'd work?
+            if (entity.getClass() == kind) {
                 ofType.add(entity);
             }
         }
