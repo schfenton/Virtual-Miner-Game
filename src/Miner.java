@@ -23,4 +23,18 @@ abstract class Miner extends MovableEntity {
         return resourceLimit;
     }
 
+    protected void transformAngel(
+            WorldModel world,
+            EventScheduler scheduler,
+            ImageStore imageStore)
+    {
+        Angel angel = Factory.createAngel(getPosition(), imageStore.getImageList(Factory.ANGEL_KEY));
+
+        world.removeEntity(this);
+        scheduler.unscheduleAllEvents(this);
+
+        world.tryAddEntity(angel);
+        angel.scheduleActions(scheduler, world, imageStore);
+    }
+
 }

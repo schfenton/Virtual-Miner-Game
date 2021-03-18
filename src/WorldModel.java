@@ -41,13 +41,15 @@ public final class WorldModel
     */
     public void addEntity(Entity entity) {
         if (entity.getPosition().withinBounds(this)) {
-            setOccupancyCell(entity.getPosition(), entity);
+            if(!(entity instanceof NullEntity)){ //Null entities take no space
+                setOccupancyCell(entity.getPosition(), entity);
+            }
             getEntities().add(entity);
         }
     }
 
     public void tryAddEntity(Entity entity) {
-        if (isOccupied(entity.getPosition())) {
+        if (isOccupied(entity.getPosition()) && !(entity instanceof NullEntity)) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");

@@ -61,7 +61,7 @@ public final class WorldView
         for (Entity entity : world.getEntities()) {
             Point pos = entity.getPosition();
 
-            if (viewport.contains(pos)) {
+            if (viewport.contains(pos) && !(entity instanceof NullEntity)) {
                 Point viewPoint = viewport.worldToViewport(pos.x, pos.y);
                 this.screen.image(entity.getCurrentImage(),
                         viewPoint.x * this.tileWidth,

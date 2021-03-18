@@ -94,21 +94,14 @@ public final class VirtualWorld extends PApplet
     public void mousePressed() {
         Point pressed = WorldView.getViewport().viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
         if(!world.isOccupied(pressed)) {
-            God entity = Factory.createGod(pressed, imageStore.getImageList(Factory.GOD_KEY));
-            world.tryAddEntity(entity);
-            entity.scheduleActions(scheduler, world, imageStore);
-            for(int x = -1; x <= 1; x++){
-                for(int y = -1; y <= 1; y++){
-                    Point pt = new Point(pressed.x+x, pressed.y+y);
-                    world.setBackground(pt, new Background("marble", imageStore.getImageList("marble")));
-                    if(pt.withinBounds(world) && !world.isOccupied(pt) &&
-                            !(pt.x == pressed.x) && !(pt.y == pressed.y)){
-                        Obstacle pillar = Factory.createObstacle("pillar_"+pt.y+"_"+pt.x, pt,
-                                imageStore.getImageList("pillar"));
-                        world.tryAddEntity(pillar);
-                    }
-                }
-            }
+
+            God god = Factory.createGod(pressed, imageStore.getImageList(Factory.GOD_KEY));
+            world.tryAddEntity(god);
+            god.scheduleActions(scheduler, world, imageStore);
+
+            Sanctuary sanctuary = Factory.createSanctuary(pressed, world, imageStore);
+            world.tryAddEntity(sanctuary);
+
             redraw();
         }
     }

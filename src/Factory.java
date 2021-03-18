@@ -1,6 +1,7 @@
 import processing.core.PConstants;
 import processing.core.PImage;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +19,12 @@ public class Factory {
     public static final String GOD_KEY = "god";
     public static final int GOD_ACTION_PERIOD = 1000;
     public static final int GOD_ANIMATION_PERIOD = 2;
+
+    public static final String ANGEL_KEY = "angel";
+    public static final int ANGEL_ACTION_PERIOD = 1000;
+    public static final int ANGEL_ANIMATION_PERIOD = 2;
+
+    public static final String SANCTUARY_KEY = "sanctuary";
 
     public static final String QUAKE_ID = "quake";
     public static final int QUAKE_ACTION_PERIOD = 1100;
@@ -120,5 +127,14 @@ public class Factory {
     public static God createGod(Point position, List<PImage> images){
         return new God(GOD_KEY+"_"+position.y+"_"+position.x, position, images,
                 GOD_ACTION_PERIOD, GOD_ANIMATION_PERIOD);
+    }
+
+    public static Angel createAngel(Point position, List<PImage> images){
+        return new Angel(ANGEL_KEY+"_"+position.y+"_"+position.x, position, images,
+                ANGEL_ACTION_PERIOD, ANGEL_ANIMATION_PERIOD);
+    }
+
+    public static Sanctuary createSanctuary(Point position, WorldModel world, ImageStore imageStore){
+        return new Sanctuary(SANCTUARY_KEY+"_"+position.y+"_"+position.x, position, world, imageStore);
     }
 }
