@@ -1,2 +1,3 @@
-Clicking anywhere on the world spawns a god with a sanctuary. The god will roam around the world, adding mountains of ore
-for the miners. If a miner comes close to the sanctuary, they will become an angel who seeks out ore blobs to kill them.
+Clicking anywhere on the world with a clear 3x3 area spawns a god with a sanctuary. If the area is not clear,
+a message will be printed in the console. The god will roam around the world, adding mountains of ore for the miners.
+If a miner comes within 3 blocks of the sanctuary, they will become an angel that searches and kills ore blobs.

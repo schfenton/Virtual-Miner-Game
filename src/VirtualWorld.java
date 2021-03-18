@@ -93,7 +93,13 @@ public final class VirtualWorld extends PApplet
 
     public void mousePressed() {
         Point pressed = WorldView.getViewport().viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
-        if(!world.isOccupied(pressed)) {
+        boolean occupied = false;
+        for(int x = -1; x <= 1; x++){
+            for(int y = -1; y <= 1; y++){
+                occupied = occupied || world.isOccupied(new Point(pressed.x+x, pressed.y+y));
+            }
+        }
+        if(!occupied) {
 
             God god = Factory.createGod(pressed, imageStore.getImageList(Factory.GOD_KEY));
             world.tryAddEntity(god);
@@ -103,6 +109,8 @@ public final class VirtualWorld extends PApplet
             world.tryAddEntity(sanctuary);
 
             redraw();
+        }else{
+            System.out.println("Area is not clear!");
         }
     }
 
