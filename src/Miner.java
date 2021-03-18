@@ -34,7 +34,8 @@ abstract class Miner extends MovableEntity {
 
         if(sanctuary.isPresent() &&
                 sanctuary.get().getPosition().distanceSquared(getPosition()) <= Math.pow(TRANSFORM_RADIUS, 2)){
-            Angel angel = Factory.createAngel(getPosition(), imageStore.getImageList(Factory.ANGEL_KEY));
+            Angel angel = Factory.createAngel(getPosition(), imageStore.getImageList(Factory.ANGEL_KEY),
+                    getActionPeriod(), getAnimationPeriod());
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);

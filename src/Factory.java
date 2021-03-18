@@ -21,8 +21,6 @@ public class Factory {
     public static final int GOD_ANIMATION_PERIOD = 2;
 
     public static final String ANGEL_KEY = "angel";
-    public static final int ANGEL_ACTION_PERIOD = 1000;
-    public static final int ANGEL_ANIMATION_PERIOD = 2;
 
     public static final String SANCTUARY_KEY = "sanctuary";
 
@@ -129,9 +127,9 @@ public class Factory {
                 GOD_ACTION_PERIOD, GOD_ANIMATION_PERIOD);
     }
 
-    public static Angel createAngel(Point position, List<PImage> images){
+    public static Angel createAngel(Point position, List<PImage> images, int actionPeriod, int animationPeriod){
         return new Angel(ANGEL_KEY+"_"+position.y+"_"+position.x, position, images,
-                ANGEL_ACTION_PERIOD, ANGEL_ANIMATION_PERIOD);
+                actionPeriod, animationPeriod);
     }
 
     public static Sanctuary createSanctuary(Point position, WorldModel world, ImageStore imageStore){
