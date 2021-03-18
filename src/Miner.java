@@ -5,6 +5,8 @@ import java.util.Optional;
 
 abstract class Miner extends MovableEntity {
 
+    private static final int TRANSFORM_RADIUS = 3;
+
     private final int resourceLimit;
 
     public Miner(
@@ -23,18 +25,26 @@ abstract class Miner extends MovableEntity {
         return resourceLimit;
     }
 
-    protected void transformAngel(
+    protected boolean transformAngel(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        Angel angel = Factory.createAngel(getPosition(), imageStore.getImageList(Factory.ANGEL_KEY));
+        Optional<Entity> sanctuary = getPosition().findNearest(world, Sanctuary.class);
 
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
+        if(sanctuary.isPresent() &&
+                sanctuary.get().getPosition().distanceSquared(getPosition()) <= Math.pow(TRANSFORM_RADIUS, 2)){
+            Angel angel = Factory.createAngel(getPosition(), imageStore.getImageList(Factory.ANGEL_KEY));
 
-        world.tryAddEntity(angel);
-        angel.scheduleActions(scheduler, world, imageStore);
+            world.removeEntity(this);
+            scheduler.unscheduleAllEvents(this);
+
+            world.tryAddEntity(angel);
+            angel.scheduleActions(scheduler, world, imageStore);
+            return true;
+        }
+
+        return false;
     }
 
 }

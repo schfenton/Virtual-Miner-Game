@@ -74,7 +74,7 @@ public final class Point
         }
     }
 
-    private int distanceSquared(Point p2) {
+    public int distanceSquared(Point p2) {
         int deltaX = this.x - p2.x;
         int deltaY = this.y - p2.y;
 

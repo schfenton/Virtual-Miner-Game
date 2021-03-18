@@ -34,6 +34,8 @@ public class MinerFull extends Miner {
                     Factory.createActivityAction(this, world, imageStore),
                     getActionPeriod());
         }
+
+        transformAngel(world, scheduler, imageStore); //check transform before next action
     }
 
     private void transformFull(

@@ -37,6 +37,8 @@ public class MinerNotFull extends Miner {
                     Factory.createActivityAction(this, world, imageStore),
                     getActionPeriod());
         }
+
+        transformAngel(world, scheduler, imageStore);
     }
 
     private boolean transformNotFull(
