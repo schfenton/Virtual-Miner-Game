@@ -151,7 +151,7 @@ public final class WorldModel
 
     public Point pickEmptyPoint(){
         Point point = null;
-        while(point == null || !point.withinBounds(this)){
+        while(point == null || isOccupied(point)){
             point = new Point(random.nextInt(VirtualWorld.WORLD_COLS), random.nextInt(VirtualWorld.WORLD_ROWS));
         }
         return point;
