@@ -6,7 +6,6 @@ import java.util.List;
 public class Sanctuary extends NullEntity {
 
     private ArrayList<Obstacle> pillars = new ArrayList<>();
-    private ArrayList<Angel> angels = new ArrayList<>();
 
     public Sanctuary(String id, Point position, WorldModel world, ImageStore imageStore) {
         super(id, position);
